@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modifier Explorer — Relationship × Attitude</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+  margin: 0; padding: 22px; background: #fff; color: #1a1a1a;
+}
+h1 { font-size: 21px; margin: 0 0 4px 0; }
+.subtitle { color: #666; font-size: 13px; margin-bottom: 16px; max-width: 900px; line-height: 1.6; }
+.mini-title { font-size: 12px; color: #666; margin-right: 4px; }
+
+#drop {
+  border: 2px dashed #cbd5e1; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
+  background: #f8fafc; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+#drop.over { border-color: #2563eb; background: #eff6ff; }
+#drop .hint { font-size: 13px; color: #475569; }
+.btn {
+  font-size: 13px; padding: 7px 13px; border-radius: 6px; border: 1px solid #cbd5e1;
+  background: #fff; cursor: pointer;
+}
+.btn:hover { background: #f1f5f9; }
+.btn.primary { background: #2563eb; border-color: #2563eb; color: #fff; }
+.btn.primary:hover { background: #1d4ed8; }
+input[type=file] { display: none; }
+.load-msg { font-size: 12px; color: #475569; margin-top: 2px; }
+.load-msg.ok { color: #047857; }
+.load-msg.err { color: #b91c1c; font-weight: 600; }
+
+#status { font-size: 13px; color: #334155; background: #f1f5f9; border-radius: 6px; padding: 8px 12px; margin-bottom: 14px; }
+.controls { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+.controls label { font-size: 14px; display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; align-items: center; }
+.legend-chip {
+  font-size: 12px; padding: 4px 10px; border-radius: 14px; cursor: pointer; border: 1px solid;
+  display: inline-flex; align-items: center; gap: 6px; user-select: none;
+}
+.legend-chip .gloss { font-size: 10px; opacity: .75; font-style: italic; }
+.legend-chip.muted { opacity: .28; }
+
+.layout { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.grid-panel { flex: 1 1 620px; min-width: 440px; }
+.sidebar-panel { flex: 0 0 290px; }
+
+.grid-wrap { display: grid; gap: 4px; }
+.grid-header {
+  font-size: 11px; font-weight: 700; color: #1e3a8a; padding: 6px 4px; text-align: center;
+  display: flex; align-items: flex-end; justify-content: center; text-transform: uppercase; letter-spacing: .04em;
+}
+.row-label {
+  font-size: 14px; font-weight: 600; padding: 6px 10px; display: flex;
+  align-items: center; justify-content: flex-end; text-align: right;
+}
+.cell {
+  border: 1px solid #ddd; border-radius: 6px; background: #fafafa; padding: 6px;
+  min-height: 62px; cursor: pointer; display: flex; flex-direction: column; gap: 3px;
+  justify-content: center; transition: background .15s, border-color .15s, opacity .15s;
+}
+.cell:hover { border-color: #888; }
+.cell.dim { opacity: .22; }
+.cell.highlight { background: #dcfce7; border-color: #16a34a; }
+.cell.empty { background: #fff; border-style: dashed; cursor: default; }
+.count-badge { font-size: 11px; color: #64748b; text-align: center; }
+.count-sub { font-size: 10px; color: #94a3b8; text-align: center; }
+.cell-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+.cell-chips.dots { justify-content: center; margin-top: 2px; }
+.chip { font-size: 11px; border-radius: 10px; padding: 2px 7px; border: 1px solid; }
+.chip.selected { outline: 2px solid #16a34a; outline-offset: 1px; font-weight: 700; }
+.swatch { width: 9px; height: 9px; border-radius: 50%; border: 1px solid rgba(0,0,0,.25); display: inline-block; }
+
+.panel-box { border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; margin-bottom: 14px; }
+.subj-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.subj-head .mini-title { margin: 0; }
+#participants { max-height: 170px; overflow-y: auto; }
+.subj-row { display: flex; align-items: center; gap: 7px; font-size: 13px; padding: 2px 0; cursor: pointer; }
+.subj-count { color: #94a3b8; font-size: 11px; }
+
+.tag-list {
+  max-height: 460px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px;
+  padding: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start;
+}
+.tag-chip {
+  font-size: 13px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 14px;
+  padding: 5px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+}
+.tag-chip:hover { background: #e2e8f0; }
+.tag-chip.selected { background: #16a34a; border-color: #15803d; color: #fff; font-weight: 600; }
+.tag-count { font-size: 10px; color: #6b7280; }
+.tag-chip.selected .tag-count { color: #e0f2e9; }
+.tag-swatches { display: inline-flex; gap: 2px; }
+.sidebar-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.sidebar-note { font-size: 12px; color: #777; margin: 8px 0 12px 0; }
+
+.modal-backdrop {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45);
+  align-items: center; justify-content: center; z-index: 50;
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  background: #fff; border-radius: 10px; max-width: 640px; width: 92%; max-height: 84vh;
+  overflow-y: auto; padding: 20px 24px; position: relative;
+}
+.modal-close { position: absolute; top: 10px; right: 14px; cursor: pointer; font-size: 20px; color: #888; border: none; background: none; }
+.modal h3 { margin: 0 0 12px 0; font-size: 15px; color: #444; }
+.entry { border-top: 1px solid #eee; padding: 14px 0 4px 0; }
+.entry:first-of-type { border-top: none; }
+.entry-pred { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 10px; border: 1px solid; margin-bottom: 8px; font-weight: 700; }
+.entry-sentence { font-size: 15px; line-height: 1.7; margin: 0 0 10px 0; }
+.blank { font-weight: 700; color: #2563eb; }
+.entry-answers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.entry-feedback { font-size: 13px; color: #555; background: #f8f9fa; border-radius: 6px; padding: 8px 10px; white-space: pre-wrap; margin-bottom: 6px; }
+.entry-meta { font-size: 11px; color: #999; }
+details.help { margin-bottom: 14px; font-size: 13px; color: #475569; }
+details.help summary { cursor: pointer; color: #2563eb; }
+details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+/* negation polarity */
+.cell.pol-neg { background: #fff1f2; border-color: #fda4af; }
+.cell.pol-aff { background: #eff6ff; border-color: #93c5fd; }
+.cell.pol-mixed { background: linear-gradient(135deg,#fff1f2 0 50%,#eff6ff 50% 100%); border-color: #c4b5fd; }
+.cell.highlight { outline: 3px solid #16a34a; outline-offset: -2px; background: #dcfce7; }
+.chip.pol-neg { border-style: dashed; border-width: 2px; }
+.chip.discrepant { box-shadow: 0 0 0 2px #f59e0b; }
+.pol-badge {
+  display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px;
+  border-radius: 10px; margin: 0 0 8px 8px; text-transform: uppercase; letter-spacing: .04em;
+}
+.pol-badge.pol-neg { background: #fff1f2; border: 1px solid #fda4af; color: #9f1239; }
+.pol-badge.pol-aff { background: #eff6ff; border: 1px solid #93c5fd; color: #1e40af; }
+.discrepancy {
+  font-size: 12px; background: #fffbeb; border: 1px solid #fcd34d; color: #92400e;
+  border-radius: 6px; padding: 7px 10px; margin-bottom: 8px;
+}
+.warn { color: #b45309; font-weight: 700; }
+.pol-key { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 12px; color: #475569; margin-bottom: 16px; }
+.pol-key .sw { display: inline-block; width: 26px; height: 14px; border-radius: 4px; border: 1px solid; vertical-align: middle; margin-right: 5px; }
+
+.sel-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+.sel-chip {
+  font-size: 12px; background: #16a34a; color: #fff; border-radius: 12px;
+  padding: 3px 9px; cursor: pointer; border: 1px solid #15803d;
+}
+.sel-chip:hover { background: #15803d; }
+.sel-chip .x { opacity: .75; font-weight: 700; margin-left: 2px; }
+.match-badge {
+  font-size: 9px; color: #14532d; background: rgba(255,255,255,.75);
+  border-radius: 8px; padding: 1px 5px; text-align: center; margin-top: 2px; font-weight: 700;
+}
+.chip.selected { outline: 2px solid #16a34a; outline-offset: 1px; font-weight: 700; }
+
+.chip.clickable { cursor: pointer; }
+.chip.clickable:hover { filter: brightness(.94); }
+.hint-inline { font-size: 11px; color: #94a3b8; margin-left: 4px; }
+</style>
+</head>
+<body>
+
+<h1>Modifier Explorer</h1>
+<div class="subtitle">
+  Rows are <b>relationship</b>, columns are <b>attitude</b>, and each answer tag is coloured by the
+  <b>predicate</b> it came from. Aggregates across any number of participants. Everything runs locally
+  in your browser — no upload, no internet needed.
+</div>
+
+<div id="drop">
+  <button class="btn primary" onclick="document.getElementById('file-input').click()">Choose CSV file…</button>
+  <input type="file" id="file-input" accept=".csv,text/csv,text/plain">
+  <span class="hint">…or drag a CSV here</span>
+  <button class="btn" id="demo-btn">Load sample data</button>
+  <label style="font-size:13px;"><input type="checkbox" id="inc-practice"> include practice trials</label>
+</div>
+<div class="load-msg" id="load-msg">Showing the built-in sample data.</div>
+
+<details class="help">
+  <summary>Which file do I load?</summary>
+  <p>
+    Any CSV with one row per trial. Required columns: <code>predicate</code>, <code>attitude</code>,
+    <code>relationship</code>. Optional but recommended: <code>subject_id</code>, <code>sentence</code>,
+    <code>modifier_response_list</code> (or <code>modifier_response</code>), <code>trial_feedback</code>,
+    <code>is_practice</code>. Column order does not matter and extra columns are ignored.
+  </p>
+  <p>
+    The output of <code>export_responses.py</code> works as-is. From Numbers or Excel, use
+    File → Export → CSV. Answers may be a JSON array (<code>["quite","a bit"]</code>) or
+    semicolon-separated (<code>quite; a bit</code>).
+  </p>
+</details>
+
+<div id="status"></div>
+
+<div class="controls">
+  <label><input type="checkbox" id="toggle-all"> Show all answers in every cell<span class="hint-inline">(then click tags in the grid to select them)</span></label>
+  <label>Match:
+    <select id="match-mode" style="font-size:13px;padding:4px 6px;border-radius:5px;border:1px solid #cbd5e1;">
+      <option value="any">any of the selected</option>
+      <option value="all">all of the selected</option>
+    </select>
+  </label>
+  <label>Frame:
+    <select id="pol-filter" style="font-size:13px;padding:4px 6px;border-radius:5px;border:1px solid #cbd5e1;">
+      <option value="all">all</option>
+      <option value="neg">negated only</option>
+      <option value="aff">affirmative only</option>
+    </select>
+  </label>
+  <button class="btn" id="clear-btn">Reset filters</button>
+</div>
+
+<div class="legend" id="legend"></div>
+
+<div class="pol-key">
+  <span><b>Cell colour = negation frame:</b></span>
+  <span><span class="sw" style="background:#fff1f2;border-color:#fda4af;"></span>negated (&ldquo;not&nbsp;&hellip;&nbsp;interesting&rdquo;)</span>
+  <span><span class="sw" style="background:#eff6ff;border-color:#93c5fd;"></span>affirmative</span>
+  <span><span class="sw" style="background:linear-gradient(135deg,#fff1f2 0 50%,#eff6ff 50% 100%);border-color:#c4b5fd;"></span>mixed</span>
+  <span><span class="sw" style="background:#fff;border:2px dashed #666;"></span>dashed tag = negated trial</span>
+</div>
+
+<div class="layout">
+  <div class="grid-panel"><div class="grid-wrap" id="grid"></div></div>
+  <div class="sidebar-panel">
+    <div class="panel-box">
+      <div class="subj-head">
+        <span class="mini-title" id="subj-summary"></span>
+        <span>
+          <button class="btn" id="subj-all" style="padding:3px 8px;font-size:11px;">All</button>
+          <button class="btn" id="subj-none" style="padding:3px 8px;font-size:11px;">None</button>
+        </span>
+      </div>
+      <div id="participants"></div>
+    </div>
+    <div class="sidebar-title">
+      All answers &mdash; click any number
+      <span style="float:right;font-weight:400;">
+        <button class="btn" id="sel-top" style="padding:2px 7px;font-size:11px;">Top 5</button>
+        <button class="btn" id="sel-none" style="padding:2px 7px;font-size:11px;">None</button>
+      </span>
+    </div>
+    <div class="sidebar-note" id="note">No answer selected.</div>
+    <div class="tag-list" id="tags"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="backdrop">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <h3 id="modal-title"></h3>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+var CONFIG = {"demoEntries": [{"subject_id": "test", "predicate": "遅れている", "attitude": "non-committal", "relationship": "friend", "sentence": "Peter and a friend are discussing how to get there. Not wanting to assert his opinion, Peter cautiously replies: \"The bus seems [modifier] delayed, but it's easy since there's no transfer.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "warning", "relationship": "friend", "sentence": "A friend finishes decorating the clubroom and shows Peter. Wanting to be helpful, Peter points out hesitantly: \"Just that colour combination doesn't look [modifier] nice to me. What about changing it?\"", "answers": ["asfd"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "neutral", "relationship": "colleague", "sentence": "A colleague who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\"", "answers": ["fasd"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "acknowledge", "relationship": "boss", "sentence": "Peter visits, half-convinced, a restaurant his boss strongly recommended. However, the food tasted good, just as his boss had said. The next day, he thanks his boss: \"It tasted [modifier]good. Thank you for telling me about it.\"", "answers": ["fas"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "encouraging", "relationship": "colleague", "sentence": "The entertainment segment a colleague was in charge of didn't land as well as hoped. Seeing him looking apologetic, Peter reassures him: \"It was [modifier] funny. Just carrying the room like that was enough, I think.\"", "answers": ["af"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "annoyed", "relationship": "boss", "sentence": "On an urgent matter, the application Peter submitted to his boss still hasn't been reviewed days later. Irritated, Peter says: \"The review of my application seems to be [modifier] late — would it be possible for you to look at it today?\"", "answers": ["asfd"], "feedback": ""}, {"subject_id": "test", "predicate": "汚い", "attitude": "acknowledge", "relationship": "friend", "sentence": "A friend takes Peter to a restaurant he had been avoiding because it was old, saying it is well looked after. He was half-convinced. However, it's clean, just as the friend had said. He thanks his friend: \"You're right, it's not [modifier] dirty. Thanks for bringing me here.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "neutral", "relationship": "friend", "sentence": "Back from lunch, Peter is asked by a friend who had been curious about the place how good the food was, and he answers: \"The food tasted [modifier] good.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "寒い", "attitude": "warning", "relationship": "colleague", "sentence": "The colleague who booked an outdoor terrace for the welcome party shows Peter the plan. Wanting to be helpful, Peter points out hesitantly: \"I think it's [modifier] cold there this time of year. What about going indoors?\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "encouraging", "relationship": "friend", "sentence": "The lines in a drawing a friend made for him came out uneven. Since she apologizes for it, Peter reassures her: \"It's drawn [modifier] nicely. The lines can be cleaned up later.\"", "answers": ["sdf"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "annoyed", "relationship": "colleague", "sentence": "On an urgent job they are handling together, the work Peter handed to a colleague is days behind. He still hasn't touched it and looks like he has time on his hands; irritated, Peter says: \"The work I asked you for is [modifier] late. Could you get it to me by the end of today?\"", "answers": ["df"], "feedback": ""}, {"subject_id": "test", "predicate": "寒い", "attitude": "non-committal", "relationship": "colleague", "sentence": "Peter is asked by a colleague for his view on what to wear on the day of the site visit. Not wanting to assert his opinion, he cautiously replies: \"It seems [modifier] cold that day, but that's light and easy to move in.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "encouraging", "relationship": "stranger", "sentence": "A street performer, bothered that hardly anyone gathered, apologizes to Peter, who had stopped to watch. Peter reassures him: \"It was [modifier] funny. Some people did stay to the end.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "汚い", "attitude": "non-committal", "relationship": "boss", "sentence": "Peter is asked by his boss for his view on accommodation for the business trip. Not wanting to assert his opinion, he cautiously replies: \"It might be [modifier] dirty, but it's close to the station and cheap.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "acknowledge", "relationship": "colleague", "sentence": "Peter watched, half-convinced, a comedy film a colleague swore was great. However, it was funny, just as the colleague had said. He thanks the colleague: \"That was [modifier]funny. Thank you for the recommendation.\"", "answers": ["adsf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "annoyed", "relationship": "friend", "sentence": "A friend keeps piling bags into the room Peter had arranged down to the furniture placement for their guests, ruining it. Irritated, Peter says: \"I just got it all set up, and now it's not [modifier] nice to look at!\"", "answers": ["dsaf"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "neutral", "relationship": "stranger", "sentence": "A passenger who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "non-committal", "relationship": "stranger", "sentence": "A customer sharing his table asks Peter which dish to get. Not wanting to assert his opinion, Peter cautiously replies: \"That one might not taste [modifier] good, but it's cheap and a big portion.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "warning", "relationship": "boss", "sentence": "The boss runs by Peter the anecdote he plans to tell at the morning meeting. Wanting to be helpful, Peter points out hesitantly: \"I'm not sure that opener comes across as [modifier] funny to me. Maybe it's worth shortening.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "encouraging", "relationship": "boss", "sentence": "The boss brings in sweets he made with his family, but they are overbaked. Seeing that he is bothered by it, Peter reassures him: \"They taste [modifier] good. Nice and toasty — I like them like this.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "汚い", "attitude": "warning", "relationship": "stranger", "sentence": "A server in the restaurant finishes setting Peter's table and is about to move to the next. Wanting to be helpful, Peter points out hesitantly: \"Just the edge of that table looks [modifier] dirty. Maybe it's worth wiping down.\"", "answers": ["asfd"], "feedback": ""}, {"subject_id": "test", "predicate": "寒い", "attitude": "acknowledge", "relationship": "stranger", "sentence": "A shop assistant recommends a coat Peter had assumed would be cold because it was thin, insisting it is warm. He bought it half-convinced and wore it outside. However, it was warm, just as the assistant had said. Later, he thanks the assistant: \"I wasn't [modifier] cold. Thank you for recommending it.\"", "answers": ["sdf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "annoyed", "relationship": "stranger", "sentence": "A passerby has parked a bicycle in the flower bed outside the shop that Peter had been tending since morning, knocking the flowers over. Irritated, Peter stops the person and says: \"I had just got it looking right and now it's not [modifier] nice to look at. Could you move it?\"", "answers": ["sdf"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "neutral", "relationship": "boss", "sentence": "The boss is planning to use the same bus route for a business trip and asks Peter how delayed the bus was this morning. Peter answers: \"The bus was [modifier] delayed.\"", "answers": ["as"], "feedback": ""}], "relationshipOrder": ["boss", "colleague", "friend", "stranger"], "attitudeOrder": ["neutral", "non-committal", "encouraging", "acknowledge", "warning", "annoyed"], "predicateOrder": ["面白い", "美味しい", "綺麗", "遅れている", "寒い", "汚い"], "predicateGloss": {"面白い": "interesting / funny", "美味しい": "tasty / delicious", "綺麗": "clean / pretty", "遅れている": "delayed / late", "寒い": "cold", "汚い": "dirty / messy"}, "labels": {"neutral": "Neutral", "non-committal": "Non-committal", "encouraging": "Encouraging", "acknowledge": "Acknowledging", "warning": "Warning", "annoyed": "Annoyed", "boss": "Boss", "colleague": "Colleague", "friend": "Friend", "stranger": "Stranger"}, "palette": [{"bg": "#fef3c7", "bd": "#d97706", "fg": "#92400e"}, {"bg": "#fee2e2", "bd": "#dc2626", "fg": "#991b1b"}, {"bg": "#d1fae5", "bd": "#059669", "fg": "#065f46"}, {"bg": "#dbeafe", "bd": "#2563eb", "fg": "#1e40af"}, {"bg": "#cffafe", "bd": "#0891b2", "fg": "#155e75"}, {"bg": "#ede9fe", "bd": "#7c3aed", "fg": "#5b21b6"}, {"bg": "#fce7f3", "bd": "#db2777", "fg": "#9d174d"}, {"bg": "#ecfccb", "bd": "#65a30d", "fg": "#3f6212"}, {"bg": "#ffedd5", "bd": "#ea580c", "fg": "#9a3412"}, {"bg": "#e0e7ff", "bd": "#4f46e5", "fg": "#3730a3"}], "negatedByAttitude": {"neutral": [], "non-committal": ["面白い", "美味しい", "綺麗"], "warning": ["面白い", "美味しい", "綺麗"], "annoyed": ["面白い", "美味しい", "綺麗"], "encouraging": ["遅れている", "寒い", "汚い"], "acknowledge": ["遅れている", "寒い", "汚い"]}};
+
+/* ---------- CSV parsing (RFC4180: quoted fields, "" escapes, newlines, CRLF, BOM) ---------- */
+function parseCSV(text) {
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  var rows = [], row = [], field = '', i = 0, inQ = false;
+  while (i < text.length) {
+    var ch = text[i];
+    if (inQ) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+        inQ = false; i++; continue;
+      }
+      field += ch; i++; continue;
+    }
+    if (ch === '"') { inQ = true; i++; continue; }
+    if (ch === ',') { row.push(field); field = ''; i++; continue; }
+    if (ch === '\r') { i++; continue; }
+    if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; continue; }
+    field += ch; i++;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(function (r) { return r.some(function (c) { return String(c).trim() !== ''; }); });
+}
+
+/* Column aliases, so both the Firestore export and a Numbers/Excel export work. */
+var ALIASES = {
+  subject_id: ['subject_id', 'participant_id', 'participant', 'pid', 'doc_id'],
+  predicate: ['predicate'],
+  attitude: ['attitude', 'context'],
+  relationship: ['relationship', 'interlocutor'],
+  sentence: ['sentence', 'scenario', 'text'],
+  answers: ['modifier_response_list', 'modifier_response', 'answers', 'response'],
+  feedback: ['trial_feedback', 'feedback'],
+  is_practice: ['is_practice', 'practice'],
+  comments: ['session_comments', 'comments']
+};
+
+function resolveColumns(header) {
+  var norm = header.map(function (h) { return String(h || '').trim().toLowerCase(); });
+  var map = {};
+  Object.keys(ALIASES).forEach(function (key) {
+    for (var a = 0; a < ALIASES[key].length; a++) {
+      var idx = norm.indexOf(ALIASES[key][a]);
+      if (idx !== -1) { map[key] = idx; return; }
+    }
+  });
+  return map;
+}
+
+function splitAnswers(raw) {
+  raw = String(raw == null ? '' : raw).trim();
+  if (!raw) return [];
+  if (raw.charAt(0) === '[') {
+    try {
+      var arr = JSON.parse(raw);
+      if (Object.prototype.toString.call(arr) === '[object Array]') {
+        return arr.map(function (x) { return String(x).trim(); }).filter(Boolean);
+      }
+    } catch (e) { /* fall through to delimiter split */ }
+  }
+  return raw.split(/[;\n]/).map(function (s) { return s.trim(); }).filter(Boolean);
+}
+
+function isTruthy(v) {
+  var s = String(v == null ? '' : v).trim().toLowerCase();
+  return s === 'true' || s === '1' || s === 'yes';
+}
+
+function rowsToEntries(rows, includePractice) {
+  if (!rows.length) return { entries: [], skipped: 0, missing: [] };
+  var cols = resolveColumns(rows[0]);
+  var required = ['predicate', 'attitude', 'relationship'];
+  var missing = required.filter(function (r) { return cols[r] === undefined; });
+  if (missing.length) return { entries: [], skipped: 0, missing: missing };
+
+  var entries = [], skipped = 0;
+  for (var i = 1; i < rows.length; i++) {
+    var r = rows[i];
+    var get = function (k) { return cols[k] === undefined ? '' : (r[cols[k]] == null ? '' : String(r[cols[k]]).trim()); };
+    if (!includePractice && cols.is_practice !== undefined && isTruthy(get('is_practice'))) { skipped++; continue; }
+    var pred = get('predicate'), att = get('attitude'), rel = get('relationship');
+    if (!pred || !att || !rel) { skipped++; continue; }
+    entries.push({
+      subject_id: get('subject_id') || 'unknown',
+      predicate: pred, attitude: att, relationship: rel,
+      sentence: get('sentence'),
+      answers: splitAnswers(get('answers')),
+      feedback: get('feedback'),
+      comments: get('comments')
+    });
+  }
+  return { entries: entries, skipped: skipped, missing: [] };
+}
+
+
+/* ---------- negation polarity ----------
+   Polarity is defined by the (attitude x predicate) table in CONFIG, not by
+   parsing text. We ALSO detect negation in the sentence itself and flag any
+   row where the two disagree, which surfaces stimulus bugs automatically. */
+function tablePolarity(e) {
+  var negList = CONFIG.negatedByAttitude[e.attitude];
+  if (!negList) return null;                       // attitude not in the table
+  return negList.indexOf(e.predicate) !== -1 ? 'neg' : 'aff';
+}
+
+function quoteWithBlank(t) {
+  var q = t.match(/[\u300c\u300e][^\u300d\u300f]*[\u300d\u300f]|[\u201c\u201d][^\u201c\u201d]*[\u201c\u201d]|"[^"]*"/g) || [];
+  for (var i = 0; i < q.length; i++) if (q[i].indexOf('[modifier]') !== -1) return q[i];
+  return t;
+}
+function textPolarity(t) {
+  if (!t || t.indexOf('[modifier]') === -1) return null;
+  var q = quoteWithBlank(t);
+  var idx = q.indexOf('[modifier]');
+  if (/[\u3040-\u30ff\u4e00-\u9fff]/.test(q)) {
+    // Japanese: predicate follows the blank. Strip epistemic modals that
+    // contain \u306a\u3044 but do not negate the predicate.
+    var after = q.slice(idx + 10).split(/[\u3002\u3001\uff01\uff1f\n]/)[0]
+      .replace(/\u304b\u3082\u3057\u308c(\u306a\u3044|\u307e\u305b\u3093|\u305a)/g, '')
+      .replace(/(\u306e\u3067\u306f|\u3093\u3058\u3083)\u306a\u3044(\u3067\u3057\u3087\u3046\u304b|\u304b)?/g, '');
+    return /(\u306a\u304f|\u306a\u3044|\u3042\u308a\u307e\u305b|\u307e\u305b\u3093\u3067|\u307e\u305b\u3093|\u306a\u304b\u3063\u305f)/.test(after) ? 'neg' : 'aff';
+  }
+  // English: negation sits in the clause before the blank.
+  var before = q.slice(0, idx);
+  var parts = before.split(/[.!?;\u2014]|,\s|\s(?:but|so|since|although|though|and)\s/i);
+  return /\b(not|never|no)\b|n['\u2019]t\b/i.test(parts[parts.length - 1]) ? 'neg' : 'aff';
+}
+
+function polarityOf(e) {
+  var t = tablePolarity(e);
+  return t || textPolarity(e.sentence) || 'aff';
+}
+function isDiscrepant(e) {
+  var t = tablePolarity(e), x = textPolarity(e.sentence);
+  return !!(t && x && t !== x);
+}
+function cellPolarity(list) {
+  var neg = list.filter(function (e) { return polarityOf(e) === 'neg'; }).length;
+  if (!neg) return 'aff';
+  return neg === list.length ? 'neg' : 'mixed';
+}
+
+/* ---------- state ---------- */
+var entries = [];
+var RELS = [], ATTS = [], PREDS = [], SUBJECTS = [];
+var COLORS = {};
+var activePred = {}, activeSubj = {};
+var selectedAnswers = {};            // set of answers currently highlighted
+var matchMode = 'any';               // 'any' = union, 'all' = intersection
+var showAll = false, polFilter = 'all';
+function selectedList() {
+  return Object.keys(selectedAnswers).filter(function (k) { return selectedAnswers[k]; });
+}
+function isSelected(a) { return !!selectedAnswers[a]; }
+// How many of the selected answers appear in this list of {text} objects.
+function selectedPresent(answers) {
+  return selectedList().filter(function (s) {
+    return answers.some(function (a) { return a.text === s; });
+  });
+}
+var cellMap = {}, answerInfo = {}, allAnswers = [];
+
+function orderedUnique(values, preferred) {
+  var seen = {}, found = [];
+  values.forEach(function (v) { if (!seen[v]) { seen[v] = 1; found.push(v); } });
+  var out = preferred.filter(function (p) { return seen[p]; });
+  found.forEach(function (f) { if (out.indexOf(f) === -1) out.push(f); });
+  return out;
+}
+
+function loadEntries(list) {
+  entries = list;
+  RELS = orderedUnique(entries.map(function (e) { return e.relationship; }), CONFIG.relationshipOrder);
+  ATTS = orderedUnique(entries.map(function (e) { return e.attitude; }), CONFIG.attitudeOrder);
+  PREDS = orderedUnique(entries.map(function (e) { return e.predicate; }), CONFIG.predicateOrder);
+  SUBJECTS = entries.map(function (e) { return e.subject_id; })
+    .filter(function (v, i, a) { return a.indexOf(v) === i; }).sort();
+
+  COLORS = {};
+  PREDS.forEach(function (p, i) { COLORS[p] = CONFIG.palette[i % CONFIG.palette.length]; });
+  activePred = {}; PREDS.forEach(function (p) { activePred[p] = true; });
+  activeSubj = {}; SUBJECTS.forEach(function (s) { activeSubj[s] = true; });
+  selectedAnswers = {};
+  renderAll();
+}
+
+/* Recomputed on every filter change, so counts always reflect what is on screen. */
+function recompute() {
+  var vis = entries.filter(function (e) {
+    if (!activePred[e.predicate] || !activeSubj[e.subject_id]) return false;
+    if (polFilter !== 'all' && polarityOf(e) !== polFilter) return false;
+    return true;
+  });
+  cellMap = {};
+  vis.forEach(function (e) {
+    var k = e.relationship + '|' + e.attitude;
+    (cellMap[k] = cellMap[k] || []).push(e);
+  });
+  answerInfo = {};
+  vis.forEach(function (e) {
+    e.answers.forEach(function (a) {
+      var info = answerInfo[a] = answerInfo[a] || { count: 0, predicates: {}, subjects: {} };
+      info.count++; info.predicates[e.predicate] = true; info.subjects[e.subject_id] = true;
+    });
+  });
+  allAnswers = Object.keys(answerInfo).sort(function (a, b) {
+    return (answerInfo[b].count - answerInfo[a].count) || a.localeCompare(b, 'ja');
+  });
+  return vis;
+}
+
+/* ---------- rendering ---------- */
+function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+function styleFor(p) {
+  var c = COLORS[p] || { bg: '#f3f4f6', bd: '#6b7280', fg: '#374151' };
+  return 'background:' + c.bg + ';border-color:' + c.bd + ';color:' + c.fg + ';';
+}
+function label(v) { return CONFIG.labels[v] || v; }
+function renderSentence(s) { return esc(s).replace('[modifier]', '<span class="blank">[ ___ ]</span>'); }
+
+function renderStatus(vis) {
+  var subjShown = SUBJECTS.filter(function (s) { return activeSubj[s]; }).length;
+  var answers = vis.reduce(function (n, e) { return n + e.answers.length; }, 0);
+  var negN = vis.filter(function (e) { return polarityOf(e) === 'neg'; }).length;
+  var bad = vis.filter(isDiscrepant);
+  document.getElementById('status').innerHTML =
+    '<b>' + subjShown + '</b> of <b>' + SUBJECTS.length + '</b> participant(s) &middot; ' +
+    '<b>' + vis.length + '</b> trials (<b>' + negN + '</b> negated / <b>' + (vis.length - negN) +
+    '</b> affirmative) &middot; <b>' + answers + '</b> answers &middot; <b>' + allAnswers.length +
+    '</b> distinct' + (bad.length ? ' &middot; <span class="warn">\u26a0 ' + bad.length +
+      ' trial(s) where the sentence contradicts the negation table</span>' : '');
+}
+
+function renderLegend() {
+  var el = document.getElementById('legend');
+  el.innerHTML = '<span class="mini-title">Predicate (tag colour) &mdash; click to filter:</span>';
+  PREDS.forEach(function (p) {
+    var chip = document.createElement('span');
+    chip.className = 'legend-chip' + (activePred[p] ? '' : ' muted');
+    chip.setAttribute('style', styleFor(p));
+    chip.innerHTML = '<b>' + esc(p) + '</b>' +
+      (CONFIG.predicateGloss[p] ? '<span class="gloss">' + esc(CONFIG.predicateGloss[p]) + '</span>' : '');
+    chip.onclick = function () { activePred[p] = !activePred[p]; renderAll(); };
+    el.appendChild(chip);
+  });
+}
+
+function renderParticipants() {
+  var box = document.getElementById('participants');
+  box.innerHTML = '';
+  SUBJECTS.forEach(function (s) {
+    var lab = document.createElement('label');
+    lab.className = 'subj-row';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.checked = !!activeSubj[s];
+    cb.onchange = function () { activeSubj[s] = cb.checked; renderAll(); };
+    var n = entries.filter(function (e) { return e.subject_id === s; }).length;
+    lab.appendChild(cb);
+    var span = document.createElement('span');
+    span.innerHTML = esc(s) + ' <span class="subj-count">(' + n + ')</span>';
+    lab.appendChild(span);
+    box.appendChild(lab);
+  });
+  document.getElementById('subj-summary').textContent =
+    SUBJECTS.length + ' participant' + (SUBJECTS.length === 1 ? '' : 's');
+}
+
+function renderGrid() {
+  var grid = document.getElementById('grid');
+  grid.style.gridTemplateColumns = '120px repeat(' + ATTS.length + ', minmax(108px, 1fr))';
+  grid.innerHTML = '';
+  grid.appendChild(document.createElement('div'));
+  ATTS.forEach(function (a) {
+    var h = document.createElement('div');
+    h.className = 'grid-header'; h.textContent = label(a);
+    grid.appendChild(h);
+  });
+
+  RELS.forEach(function (rel) {
+    var lab = document.createElement('div');
+    lab.className = 'row-label'; lab.textContent = label(rel);
+    grid.appendChild(lab);
+
+    ATTS.forEach(function (att) {
+      var list = cellMap[rel + '|' + att] || [];
+      var cell = document.createElement('div');
+      cell.className = 'cell pol-' + cellPolarity(list);
+      if (!list.length) {
+        cell.className = 'cell empty';
+        cell.innerHTML = '<div class="count-badge">&mdash;</div>';
+        grid.appendChild(cell);
+        return;
+      }
+      var answers = [];
+      list.forEach(function (e) {
+        var pol = polarityOf(e), bad = isDiscrepant(e);
+        e.answers.forEach(function (a) { answers.push({ text: a, pred: e.predicate, subj: e.subject_id, pol: pol, bad: bad }); });
+      });
+
+      if (showAll) {
+        var wrap = document.createElement('div');
+        wrap.className = 'cell-chips';
+        answers.forEach(function (a) {
+          var c = document.createElement('span');
+          c.className = 'chip clickable pol-' + a.pol + (a.bad ? ' discrepant' : '') +
+            (isSelected(a.text) ? ' selected' : '');
+          c.setAttribute('style', styleFor(a.pred));
+          c.textContent = a.text;
+          c.title = a.pred + ' \u00b7 ' + a.subj + ' \u00b7 ' +
+            (a.pol === 'neg' ? 'negated frame' : 'affirmative frame') +
+            (a.bad ? ' \u00b7 WARNING: sentence text disagrees with the negation table' : '') +
+            ' \u2014 click to select';
+          // Selecting a tag here must not also open the cell's modal.
+          c.onclick = function (ev) {
+            ev.stopPropagation();
+            if (selectedAnswers[a.text]) delete selectedAnswers[a.text];
+            else selectedAnswers[a.text] = true;
+            renderNote(); renderTags(); renderGrid();
+          };
+          wrap.appendChild(c);
+        });
+        cell.appendChild(wrap);
+      } else {
+        var badge = document.createElement('div');
+        badge.className = 'count-badge';
+        badge.textContent = answers.length + (answers.length === 1 ? ' answer' : ' answers');
+        cell.appendChild(badge);
+        var sub = document.createElement('div');
+        sub.className = 'count-sub';
+        sub.textContent = list.length + (list.length === 1 ? ' trial' : ' trials');
+        cell.appendChild(sub);
+        var strip = document.createElement('div');
+        strip.className = 'cell-chips dots';
+        var seen = {};
+        list.forEach(function (e) {
+          if (seen[e.predicate]) return;
+          seen[e.predicate] = 1;
+          var dot = document.createElement('span');
+          dot.className = 'swatch';
+          var c = COLORS[e.predicate] || {};
+          dot.style.background = c.bg; dot.style.borderColor = c.bd;
+          dot.title = e.predicate;
+          strip.appendChild(dot);
+        });
+        cell.appendChild(strip);
+      }
+
+      var sel = selectedList();
+      if (sel.length) {
+        var present = selectedPresent(answers);
+        var hit = matchMode === 'all' ? present.length === sel.length : present.length > 0;
+        cell.className += hit ? ' highlight' : ' dim';
+        if (hit && sel.length > 1) {
+          var m = document.createElement('div');
+          m.className = 'match-badge';
+          m.textContent = present.length + ' of ' + sel.length + ' selected';
+          m.title = present.join(', ');
+          cell.appendChild(m);
+        }
+      }
+      cell.onclick = function () { openModal(rel, att, list); };
+      grid.appendChild(cell);
+    });
+  });
+}
+
+function renderTags() {
+  var el = document.getElementById('tags');
+  el.innerHTML = '';
+  if (!allAnswers.length) { el.innerHTML = '<div class="sidebar-note">No answers match the current filters.</div>'; return; }
+  allAnswers.forEach(function (a) {
+    var info = answerInfo[a];
+    var chip = document.createElement('div');
+    chip.className = 'tag-chip' + (isSelected(a) ? ' selected' : '');
+    var lab = document.createElement('span');
+    lab.textContent = a;
+    chip.appendChild(lab);
+    var sw = document.createElement('span');
+    sw.className = 'tag-swatches';
+    Object.keys(info.predicates).forEach(function (p) {
+      var d = document.createElement('span');
+      d.className = 'swatch';
+      var c = COLORS[p] || {};
+      d.style.background = c.bg; d.style.borderColor = c.bd; d.title = p;
+      sw.appendChild(d);
+    });
+    chip.appendChild(sw);
+    var cnt = document.createElement('span');
+    cnt.className = 'tag-count';
+    cnt.textContent = '×' + info.count + ' / ' + Object.keys(info.subjects).length + 'p';
+    chip.title = info.count + ' mention(s) from ' + Object.keys(info.subjects).length + ' participant(s)';
+    chip.appendChild(cnt);
+    chip.onclick = function () {
+      if (selectedAnswers[a]) delete selectedAnswers[a]; else selectedAnswers[a] = true;
+      renderNote(); renderTags(); renderGrid();
+    };
+    el.appendChild(chip);
+  });
+}
+
+function renderNote() {
+  var note = document.getElementById('note');
+  var sel = selectedList();
+  if (!sel.length) {
+    note.innerHTML = 'No answers selected. Click any number of answers to highlight them.';
+    return;
+  }
+  var cells = 0;
+  Object.keys(cellMap).forEach(function (k) {
+    var answers = [];
+    cellMap[k].forEach(function (e) {
+      e.answers.forEach(function (a) { answers.push({ text: a }); });
+    });
+    var present = selectedPresent(answers);
+    var hit = matchMode === 'all' ? present.length === sel.length : present.length > 0;
+    if (hit) cells++;
+  });
+  note.innerHTML = '';
+  var head = document.createElement('div');
+  head.innerHTML = '<b>' + sel.length + '</b> selected &middot; ' +
+    (matchMode === 'all' ? 'in <b>all</b> of' : 'in <b>any</b> of') +
+    ' &rarr; <b>' + cells + '</b> cell(s)';
+  note.appendChild(head);
+  var wrap = document.createElement('div');
+  wrap.className = 'sel-chips';
+  sel.forEach(function (a) {
+    var c = document.createElement('span');
+    c.className = 'sel-chip';
+    c.innerHTML = esc(a) + ' <span class="x">&times;</span>';
+    c.title = 'Remove from selection';
+    c.onclick = function () { delete selectedAnswers[a]; renderNote(); renderTags(); renderGrid(); };
+    wrap.appendChild(c);
+  });
+  note.appendChild(wrap);
+}
+
+function openModal(rel, att, list) {
+  document.getElementById('modal-title').textContent = label(rel) + '  ·  ' + label(att);
+  var body = document.getElementById('modal-body');
+  body.innerHTML = '';
+  list.forEach(function (e) {
+    var d = document.createElement('div');
+    d.className = 'entry';
+    var chips = e.answers.map(function (a) {
+      return '<span class="chip clickable modal-chip' + (isSelected(a) ? ' selected' : '') +
+        '" data-answer="' + esc(a) + '" style="' + styleFor(e.predicate) + '">' + esc(a) + '</span>';
+    }).join('');
+    d.innerHTML =
+      '<span class="pol-badge pol-' + polarityOf(e) + '">' +
+        (polarityOf(e) === 'neg' ? 'negated frame' : 'affirmative frame') + '</span>' +
+      (isDiscrepant(e) ? '<div class="discrepancy">\u26a0 The sentence text disagrees with the ' +
+        'negation table for this attitude \u00d7 predicate \u2014 likely a stimulus error.</div>' : '') +
+      '<span class="entry-pred" style="' + styleFor(e.predicate) + '">' + esc(e.predicate) +
+        (CONFIG.predicateGloss[e.predicate] ? ' — ' + esc(CONFIG.predicateGloss[e.predicate]) : '') + '</span>' +
+      '<p class="entry-sentence">' + renderSentence(e.sentence || '(no sentence recorded)') + '</p>' +
+      '<div class="entry-answers">' + (chips || '<span class="entry-meta">(no answers)</span>') + '</div>' +
+      (e.feedback ? '<div class="entry-feedback"><b>Trial feedback:</b> ' + esc(e.feedback) + '</div>' : '') +
+      '<div class="entry-meta">participant: ' + esc(e.subject_id) + '</div>';
+    body.appendChild(d);
+  });
+  document.getElementById('backdrop').classList.add('open');
+}
+
+function renderAll() {
+  var vis = recompute();
+  renderLegend(); renderParticipants(); renderGrid(); renderTags(); renderNote(); renderStatus(vis);
+}
+
+/* ---------- file loading ---------- */
+function handleText(text, name) {
+  var msg = document.getElementById('load-msg');
+  var rows;
+  try { rows = parseCSV(text); }
+  catch (err) { msg.className = 'load-msg err'; msg.textContent = 'Could not parse that file: ' + err.message; return; }
+  var res = rowsToEntries(rows, document.getElementById('inc-practice').checked);
+  if (res.missing.length) {
+    msg.className = 'load-msg err';
+    msg.textContent = 'Missing required column(s): ' + res.missing.join(', ') +
+      '. Found: ' + (rows[0] || []).join(', ');
+    return;
+  }
+  if (!res.entries.length) {
+    msg.className = 'load-msg err';
+    msg.textContent = 'No usable rows found in ' + name + '.';
+    return;
+  }
+  msg.className = 'load-msg ok';
+  msg.textContent = 'Loaded ' + res.entries.length + ' trials from ' + name +
+    (res.skipped ? ' (' + res.skipped + ' row(s) skipped: practice or incomplete)' : '');
+  lastText = text;
+  loadEntries(res.entries);
+}
+
+var lastText = null;
+
+function readFile(file) {
+  var reader = new FileReader();
+  reader.onload = function () { handleText(String(reader.result), file.name); };
+  reader.onerror = function () {
+    var msg = document.getElementById('load-msg');
+    msg.className = 'load-msg err'; msg.textContent = 'Could not read that file.';
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+document.getElementById('file-input').onchange = function (e) {
+  if (e.target.files && e.target.files[0]) readFile(e.target.files[0]);
+};
+var drop = document.getElementById('drop');
+['dragenter', 'dragover'].forEach(function (ev) {
+  drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); });
+});
+['dragleave', 'drop'].forEach(function (ev) {
+  drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); });
+});
+drop.addEventListener('drop', function (e) {
+  var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) readFile(f);
+});
+document.getElementById('inc-practice').onchange = function () {
+  if (lastText) handleText(lastText, 'the same file');
+};
+document.getElementById('toggle-all').onchange = function (e) { showAll = e.target.checked; renderGrid(); };
+document.getElementById('pol-filter').onchange = function (e) { polFilter = e.target.value; renderAll(); };
+document.getElementById('match-mode').onchange = function (e) {
+  matchMode = e.target.value; renderNote(); renderGrid();
+};
+document.getElementById('sel-none').onclick = function () {
+  selectedAnswers = {}; renderNote(); renderTags(); renderGrid();
+};
+document.getElementById('sel-top').onclick = function () {
+  selectedAnswers = {};
+  allAnswers.slice(0, 5).forEach(function (a) { selectedAnswers[a] = true; });
+  renderNote(); renderTags(); renderGrid();
+};
+document.getElementById('clear-btn').onclick = function () {
+  selectedAnswers = {};
+  polFilter = 'all'; document.getElementById('pol-filter').value = 'all';
+  PREDS.forEach(function (p) { activePred[p] = true; });
+  SUBJECTS.forEach(function (s) { activeSubj[s] = true; });
+  renderAll();
+};
+document.getElementById('subj-all').onclick = function () {
+  SUBJECTS.forEach(function (s) { activeSubj[s] = true; }); renderAll();
+};
+document.getElementById('subj-none').onclick = function () {
+  SUBJECTS.forEach(function (s) { activeSubj[s] = false; }); renderAll();
+};
+document.getElementById('demo-btn').onclick = function () {
+  lastText = null;
+  var msg = document.getElementById('load-msg');
+  msg.className = 'load-msg'; msg.textContent = 'Showing the built-in sample data.';
+  loadEntries(CONFIG.demoEntries.slice());
+};
+document.getElementById('modal-close').onclick = function () {
+  document.getElementById('backdrop').classList.remove('open');
+};
+document.getElementById('modal-body').onclick = function (ev) {
+  var t = ev.target;
+  if (t && t.className && String(t.className).indexOf('modal-chip') !== -1) {
+    var a = t.getAttribute('data-answer');
+    if (selectedAnswers[a]) delete selectedAnswers[a]; else selectedAnswers[a] = true;
+    renderNote(); renderTags(); renderGrid();
+    t.className = t.className.indexOf(' selected') !== -1
+      ? t.className.replace(' selected', '') : t.className + ' selected';
+  }
+};
+document.getElementById('backdrop').onclick = function (e) {
+  if (e.target === this) this.classList.remove('open');
+};
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') document.getElementById('backdrop').classList.remove('open');
+});
+
+loadEntries(CONFIG.demoEntries.slice());
+
+</script>
+</body>
+</html>
