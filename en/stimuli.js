@@ -19,9 +19,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "friend",
     "text": "After the screening, Peter is asked by a friend who hasn't seen the film yet how funny it was, and he answers: \"It was [modifier] funny.\""
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "friend",
+    "text": "After the screening, Peter is asked by a friend who hasn't seen the film yet how funny it was, and he answers: \"It wasn't [modifier] funny.\""
   },
   {
     "predicate": "面白い",
@@ -55,9 +61,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "colleague",
     "text": "The day after the company event, Peter is asked by a colleague who didn't attend how funny the entertainment was, and he answers: \"It was [modifier] funny.\""
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "colleague",
+    "text": "The day after the company event, Peter is asked by a colleague who didn't attend how funny the entertainment was, and he answers: \"It wasn't [modifier] funny.\""
   },
   {
     "predicate": "面白い",
@@ -91,9 +103,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "boss",
     "text": "Asked by his boss how funny the entertainment at the company event was, Peter answers: \"It was [modifier] funny.\""
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "boss",
+    "text": "Asked by his boss how funny the entertainment at the company event was, Peter answers: \"It wasn't [modifier] funny.\""
   },
   {
     "predicate": "面白い",
@@ -127,9 +145,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "stranger",
     "text": "In the lobby after the screening, Peter is asked by someone about to see the same film how funny it was, and he answers: \"It was [modifier] funny.\""
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "stranger",
+    "text": "In the lobby after the screening, Peter is asked by someone about to see the same film how funny it was, and he answers: \"It wasn't [modifier] funny.\""
   },
   {
     "predicate": "面白い",
@@ -163,9 +187,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "friend",
     "text": "Back from lunch, Peter is asked by a friend who had been curious about the place how good the food was, and he answers: \"The food tasted [modifier] good.\""
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "friend",
+    "text": "Back from lunch, Peter is asked by a friend who had been curious about the place how good the food was, and he answers: \"The food didn't taste [modifier] good.\""
   },
   {
     "predicate": "美味しい",
@@ -199,9 +229,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "colleague",
     "text": "Back from a business trip, Peter is asked by a colleague planning to go to the same restaurant how good the food was, and he answers: \"The food tasted [modifier] good.\""
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "colleague",
+    "text": "Back from a business trip, Peter is asked by a colleague planning to go to the same restaurant how good the food was, and he answers: \"The food didn't taste [modifier] good.\""
   },
   {
     "predicate": "美味しい",
@@ -235,9 +271,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "boss",
     "text": "Asked by his boss how good the food was at the restaurant they used for the client dinner, Peter answers: \"The food tasted [modifier] good.\""
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "boss",
+    "text": "Asked by his boss how good the food was at the restaurant they used for the client dinner, Peter answers: \"The food didn't taste [modifier] good.\""
   },
   {
     "predicate": "美味しい",
@@ -271,9 +313,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "stranger",
     "text": "Outside the restaurant, someone deciding whether to go in asks Peter how good the food was, and he answers: \"The food tasted [modifier] good.\""
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "stranger",
+    "text": "Outside the restaurant, someone deciding whether to go in asks Peter how good the food was, and he answers: \"The food didn't taste [modifier] good.\""
   },
   {
     "predicate": "美味しい",
@@ -307,9 +355,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "friend",
     "text": "Back from his trip, Peter is asked by a friend who is deciding whether to go next month how nice the place was, and he answers: \"It was [modifier] nice.\""
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "friend",
+    "text": "Back from his trip, Peter is asked by a friend who is deciding whether to go next month how nice the place was, and he answers: \"It wasn't [modifier] nice.\""
   },
   {
     "predicate": "綺麗",
@@ -343,9 +397,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "colleague",
     "text": "Back from a business trip, Peter is asked by a colleague heading to the same place how nice the facility was, and he answers: \"It was [modifier] nice.\""
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "colleague",
+    "text": "Back from a business trip, Peter is asked by a colleague heading to the same place how nice the facility was, and he answers: \"It wasn't [modifier] nice.\""
   },
   {
     "predicate": "綺麗",
@@ -379,9 +439,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "boss",
     "text": "Asked by his boss how nice the facility he inspected was, Peter answers: \"It was [modifier] nice.\""
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "boss",
+    "text": "Asked by his boss how nice the facility he inspected was, Peter answers: \"It wasn't [modifier] nice.\""
   },
   {
     "predicate": "綺麗",
@@ -415,9 +481,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "stranger",
     "text": "At the entrance to the observation deck, someone about to go up asks Peter how nice the view was, and he answers: \"It was [modifier] nice.\""
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "stranger",
+    "text": "At the entrance to the observation deck, someone about to go up asks Peter how nice the view was, and he answers: \"It wasn't [modifier] nice.\""
   },
   {
     "predicate": "綺麗",
@@ -451,7 +523,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "friend",
+    "text": "A friend who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus wasn't [modifier] delayed.\""
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "friend",
     "text": "A friend who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\""
   },
@@ -487,7 +565,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "colleague",
+    "text": "A colleague who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus wasn't [modifier] delayed.\""
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "colleague",
     "text": "A colleague who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\""
   },
@@ -523,7 +607,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "boss",
+    "text": "The boss is planning to use the same bus route for a business trip and asks Peter how delayed the bus was this morning. Peter answers: \"The bus wasn't [modifier] delayed.\""
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "boss",
     "text": "The boss is planning to use the same bus route for a business trip and asks Peter how delayed the bus was this morning. Peter answers: \"The bus was [modifier] delayed.\""
   },
@@ -559,7 +649,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "stranger",
+    "text": "A passenger who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus wasn't [modifier] delayed.\""
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "stranger",
     "text": "A passenger who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\""
   },
@@ -595,7 +691,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "friend",
+    "text": "Asked by a friend who is about to head out how cold it is outside, Peter answers: \"It isn't [modifier] cold.\""
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "friend",
     "text": "Asked by a friend who is about to head out how cold it is outside, Peter answers: \"It's [modifier] cold.\""
   },
@@ -631,7 +733,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "colleague",
+    "text": "Back from the warehouse, Peter is asked by a colleague about to go in how cold it is inside, and he answers: \"It isn't [modifier] cold.\""
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "colleague",
     "text": "Back from the warehouse, Peter is asked by a colleague about to go in how cold it is inside, and he answers: \"It's [modifier] cold.\""
   },
@@ -667,7 +775,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "boss",
+    "text": "Asked by his boss how cold the site was, Peter answers: \"It wasn't [modifier] cold.\""
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "boss",
     "text": "Asked by his boss how cold the site was, Peter answers: \"It was [modifier] cold.\""
   },
@@ -703,7 +817,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "stranger",
+    "text": "At the entrance, someone about to go in asks Peter how cold it is inside, and he answers: \"It isn't [modifier] cold.\""
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "stranger",
     "text": "At the entrance, someone about to go in asks Peter how cold it is inside, and he answers: \"It's [modifier] cold.\""
   },
@@ -739,7 +859,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "friend",
+    "text": "Back from the viewing, Peter is asked by a friend who is deciding whether to rent the place how dirty it is, and he answers: \"It isn't [modifier] dirty.\""
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "friend",
     "text": "Back from the viewing, Peter is asked by a friend who is deciding whether to rent the place how dirty it is, and he answers: \"It's [modifier] dirty.\""
   },
@@ -775,7 +901,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "colleague",
+    "text": "Back from checking the space, Peter is asked by a colleague who will be using it how dirty the room is, and he answers: \"It isn't [modifier] dirty.\""
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "colleague",
     "text": "Back from checking the space, Peter is asked by a colleague who will be using it how dirty the room is, and he answers: \"It's [modifier] dirty.\""
   },
@@ -811,7 +943,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "boss",
+    "text": "Asked by his boss how dirty the venue he checked was, Peter answers: \"It wasn't [modifier] dirty.\""
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "boss",
     "text": "Asked by his boss how dirty the venue he checked was, Peter answers: \"It was [modifier] dirty.\""
   },
@@ -847,7 +985,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "stranger",
+    "text": "At the entrance to the inn, someone about to stay there asks Peter how dirty the rooms are, and he answers: \"They aren't [modifier] dirty.\""
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "stranger",
     "text": "At the entrance to the inn, someone about to stay there asks Peter how dirty the rooms are, and he answers: \"They're [modifier] dirty.\""
   },

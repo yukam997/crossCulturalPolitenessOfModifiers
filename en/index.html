@@ -130,7 +130,7 @@
         type: jsPsychHtmlButtonResponse,
         stimulus:
             '<img src="practice1_example.png" alt="Screenshot of a sample answer" style="max-width:100%; height:auto; display:block; margin:0 auto 20px auto;">' +
-            '<p class="stimulus">You will first see one practice example, then move on to the 24 scenarios ' +
+            '<p class="stimulus">You will first see one practice example, then move on to the 28 scenarios ' +
             'in the main study. There are no right or wrong answers &mdash; we are interested in your intuitive judgment.</p>',
         choices: ['Next'],
         margin_vertical: '20px'
@@ -265,8 +265,8 @@
     // stimuliPool (from stimuli.js) contains every predicate x attitude x relationship
     // combination. Each participant sees exactly one scenario for every
     // (relationship, attitude) pair, with the predicate for each pair chosen at
-    // random. (Currently: 6 predicates x 6 attitudes x 4 relationships = 144 in the
-    // pool, 4 x 6 = 24 scenarios shown per participant.)
+    // random. (Currently: 6 predicates x 7 attitudes x 4 relationships = 168 in the
+    // pool, 4 x 7 = 28 scenarios shown per participant.)
     var relationships = Array.from(new Set(stimuliPool.map(function (s) { return s.relationship; })));
     var attitudes = Array.from(new Set(stimuliPool.map(function (s) { return s.attitude; })));
     var predicates = Array.from(new Set(stimuliPool.map(function (s) { return s.predicate; })));
@@ -352,7 +352,18 @@
 
         var success = backtrack();
         if (!success) {
-            console.warn('Could not find an order with no adjacent predicate/attitude repeats; showing best partial attempt.');
+            // The search unwinds completely on failure, so `result` is empty here
+            // rather than a partial order. Fall back to a plain shuffle so the
+            // participant still gets every trial (possibly with one adjacent
+            // repeat). Only reachable when a single predicate is drawn more than
+            // 14 times out of 28, i.e. roughly 1 participant in 50,000.
+            console.warn('Could not find an order with no adjacent predicate/attitude repeats; falling back to a plain shuffle.');
+            var fallback = items.slice();
+            for (var i = fallback.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = fallback[i]; fallback[i] = fallback[j]; fallback[j] = tmp;
+            }
+            return fallback;
         }
         return result;
     }

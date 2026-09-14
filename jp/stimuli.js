@@ -19,9 +19,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "friend",
     "text": "上映後、大輔はまだその映画を見ていない友人に、どれくらい面白かったか聞かれ、答えます。「映画、[modifier]面白かったよ。」"
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "friend",
+    "text": "上映後、大輔はまだその映画を見ていない友人に、どれくらい面白かったか聞かれ、答えます。「映画、[modifier]面白くなかったよ。」"
   },
   {
     "predicate": "面白い",
@@ -55,9 +61,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "colleague",
     "text": "社内イベントの翌日、大輔は出席していなかった同僚に、余興がどれくらい面白かったか聞かれ、答えます。「余興、[modifier]面白かったです。」"
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "colleague",
+    "text": "社内イベントの翌日、大輔は出席していなかった同僚に、余興がどれくらい面白かったか聞かれ、答えます。「余興、[modifier]面白くなかったです。」"
   },
   {
     "predicate": "面白い",
@@ -91,9 +103,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "boss",
     "text": "上司に、社内イベントの余興がどれくらい面白かったか聞かれ、大輔は答えます。「余興、[modifier]面白かったです。」"
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "boss",
+    "text": "上司に、社内イベントの余興がどれくらい面白かったか聞かれ、大輔は答えます。「余興、[modifier]面白くなかったです。」"
   },
   {
     "predicate": "面白い",
@@ -127,9 +145,15 @@ var stimuliPool = [
   },
   {
     "predicate": "面白い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "stranger",
     "text": "上映後のロビーで、これから同じ映画を見る客に、どれくらい面白かったか聞かれ、大輔は答えます。「映画、[modifier]面白かったです。」"
+  },
+  {
+    "predicate": "面白い",
+    "attitude": "neutral-negative",
+    "relationship": "stranger",
+    "text": "上映後のロビーで、これから同じ映画を見る客に、どれくらい面白かったか聞かれ、大輔は答えます。「映画、[modifier]面白くなかったです。」"
   },
   {
     "predicate": "面白い",
@@ -163,9 +187,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "friend",
     "text": "ランチから戻った大輔は、その店を気にしていた友人に、料理がどれくらい美味しかったか聞かれ、答えます。「料理、[modifier]美味しかったよ。」"
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "friend",
+    "text": "ランチから戻った大輔は、その店を気にしていた友人に、料理がどれくらい美味しかったか聞かれ、答えます。「料理、[modifier]美味しくなかったよ。」"
   },
   {
     "predicate": "美味しい",
@@ -199,9 +229,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "colleague",
     "text": "出張から戻った大輔は、同じ店に行こうとしている同僚に、料理がどれくらい美味しかったか聞かれ、答えます。「料理、[modifier]美味しかったです。」"
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "colleague",
+    "text": "出張から戻った大輔は、同じ店に行こうとしている同僚に、料理がどれくらい美味しかったか聞かれ、答えます。「料理、[modifier]美味しくなかったです。」"
   },
   {
     "predicate": "美味しい",
@@ -235,9 +271,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "boss",
     "text": "上司に、接待で使った店の料理がどれくらい美味しかったか聞かれ、大輔は答えます。「料理、[modifier]美味しかったです。」"
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "boss",
+    "text": "上司に、接待で使った店の料理がどれくらい美味しかったか聞かれ、大輔は答えます。「料理、[modifier]美味しくなかったです。」"
   },
   {
     "predicate": "美味しい",
@@ -271,9 +313,15 @@ var stimuliPool = [
   },
   {
     "predicate": "美味しい",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "stranger",
     "text": "店の前で、入るか迷っている客に、料理がどれくらい美味しかったか聞かれ、大輔は答えます。「料理、[modifier]美味しかったです。」"
+  },
+  {
+    "predicate": "美味しい",
+    "attitude": "neutral-negative",
+    "relationship": "stranger",
+    "text": "店の前で、入るか迷っている客に、料理がどれくらい美味しかったか聞かれ、大輔は答えます。「料理、[modifier]美味しくなかったです。」"
   },
   {
     "predicate": "美味しい",
@@ -307,9 +355,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "friend",
     "text": "旅行から帰った大輔は、来月行こうか迷っている友人に、その場所がどれくらい綺麗だったか聞かれ、答えます。「あそこ、[modifier]綺麗だったよ。」"
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "friend",
+    "text": "旅行から帰った大輔は、来月行こうか迷っている友人に、その場所がどれくらい綺麗だったか聞かれ、答えます。「あそこ、[modifier]綺麗じゃなかったよ。」"
   },
   {
     "predicate": "綺麗",
@@ -343,9 +397,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "colleague",
     "text": "出張から戻った大輔は、同じ場所に行く同僚に、その施設がどれくらい綺麗だったか聞かれ、答えます。「あそこ、[modifier]綺麗でした。」"
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "colleague",
+    "text": "出張から戻った大輔は、同じ場所に行く同僚に、その施設がどれくらい綺麗だったか聞かれ、答えます。「あそこ、[modifier]綺麗じゃなかったです。」"
   },
   {
     "predicate": "綺麗",
@@ -379,9 +439,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "boss",
     "text": "上司に、視察してきた施設がどれくらい綺麗だったか聞かれ、大輔は答えます。「あそこ、[modifier]綺麗でした。」"
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "boss",
+    "text": "上司に、視察してきた施設がどれくらい綺麗だったか聞かれ、大輔は答えます。「あそこ、[modifier]綺麗じゃなかったです。」"
   },
   {
     "predicate": "綺麗",
@@ -415,9 +481,15 @@ var stimuliPool = [
   },
   {
     "predicate": "綺麗",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
     "relationship": "stranger",
     "text": "展望台の入口で、これから上がる客に、景色がどれくらい綺麗だったか聞かれ、大輔は答えます。「景色、[modifier]綺麗でした。」"
+  },
+  {
+    "predicate": "綺麗",
+    "attitude": "neutral-negative",
+    "relationship": "stranger",
+    "text": "展望台の入口で、これから上がる客に、景色がどれくらい綺麗だったか聞かれ、大輔は答えます。「景色、[modifier]綺麗じゃなかったです。」"
   },
   {
     "predicate": "綺麗",
@@ -451,7 +523,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "friend",
+    "text": "同じ路線のバスを通勤に使おうかと迷っている友人に、大輔は今朝のバスがどれくらい遅れていたか聞かれ、答えます。「バス、[modifier]遅れてなかったよ。」"
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "friend",
     "text": "同じ路線のバスを通勤に使おうかと迷っている友人に、大輔は今朝のバスがどれくらい遅れていたか聞かれ、答えます。「バス、[modifier]遅れてたよ。」"
   },
@@ -487,7 +565,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "colleague",
+    "text": "同じ路線のバスを通勤に使おうかと迷っている同僚に、大輔は今朝のバスがどれくらい遅れていたか聞かれ、答えます。「バス、[modifier]遅れていませんでした。」"
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "colleague",
     "text": "同じ路線のバスを通勤に使おうかと迷っている同僚に、大輔は今朝のバスがどれくらい遅れていたか聞かれ、答えます。「バス、[modifier]遅れていました。」"
   },
@@ -523,7 +607,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "boss",
+    "text": "上司が出張で同じバス路線を使う予定でいるため、大輔に今朝のバスがどれくらい遅れていたか尋ねます。大輔は答えます。「バス、[modifier]遅れていませんでした。」"
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "boss",
     "text": "上司が出張で同じバス路線を使う予定でいるため、大輔に今朝のバスがどれくらい遅れていたか尋ねます。大輔は答えます。「バス、[modifier]遅れていました。」"
   },
@@ -559,7 +649,13 @@ var stimuliPool = [
   },
   {
     "predicate": "遅れている",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "stranger",
+    "text": "同じ路線のバスを通勤に使おうかと迷っている客に、大輔は今朝のバスがどれくらい遅れていたか聞かれ、答えます。「バス、[modifier]遅れていませんでした。」"
+  },
+  {
+    "predicate": "遅れている",
+    "attitude": "neutral-negative",
     "relationship": "stranger",
     "text": "同じ路線のバスを通勤に使おうかと迷っている客に、大輔は今朝のバスがどれくらい遅れていたか聞かれ、答えます。「バス、[modifier]遅れていました。」"
   },
@@ -595,7 +691,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "friend",
+    "text": "これから出かける友人に、大輔は外がどれくらい寒いか聞かれ、答えます。「外、[modifier]寒くないよ。」"
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "friend",
     "text": "これから出かける友人に、大輔は外がどれくらい寒いか聞かれ、答えます。「外、[modifier]寒いよ。」"
   },
@@ -631,7 +733,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "colleague",
+    "text": "倉庫から戻った大輔は、これから入る同僚に、中がどれくらい寒いか聞かれ、答えます。「中、[modifier]寒くないです。」"
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "colleague",
     "text": "倉庫から戻った大輔は、これから入る同僚に、中がどれくらい寒いか聞かれ、答えます。「中、[modifier]寒いです。」"
   },
@@ -667,7 +775,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "boss",
+    "text": "上司に、視察先がどれくらい寒かったか聞かれ、大輔は答えます。「現場、[modifier]寒くなかったです。」"
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "boss",
     "text": "上司に、視察先がどれくらい寒かったか聞かれ、大輔は答えます。「現場、[modifier]寒かったです。」"
   },
@@ -703,7 +817,13 @@ var stimuliPool = [
   },
   {
     "predicate": "寒い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "stranger",
+    "text": "店の入口で、これから入る客に、店内がどれくらい寒いか聞かれ、大輔は答えます。「店内、[modifier]寒くないです。」"
+  },
+  {
+    "predicate": "寒い",
+    "attitude": "neutral-negative",
     "relationship": "stranger",
     "text": "店の入口で、これから入る客に、店内がどれくらい寒いか聞かれ、大輔は答えます。「店内、[modifier]寒いです。」"
   },
@@ -739,7 +859,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "friend",
+    "text": "内見から戻った大輔は、その部屋を借りようか迷っている友人に、どれくらい汚いか聞かれ、答えます。「部屋、[modifier]汚くないよ。」"
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "friend",
     "text": "内見から戻った大輔は、その部屋を借りようか迷っている友人に、どれくらい汚いか聞かれ、答えます。「部屋、[modifier]汚いよ。」"
   },
@@ -775,7 +901,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "colleague",
+    "text": "下見から戻った大輔は、これから使う同僚に、その部屋がどれくらい汚いか聞かれ、答えます。「部屋、[modifier]汚くないです。」"
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "colleague",
     "text": "下見から戻った大輔は、これから使う同僚に、その部屋がどれくらい汚いか聞かれ、答えます。「部屋、[modifier]汚いです。」"
   },
@@ -811,7 +943,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "boss",
+    "text": "上司に、下見してきた会場がどれくらい汚かったか聞かれ、大輔は答えます。「会場、[modifier]汚くなかったです。」"
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "boss",
     "text": "上司に、下見してきた会場がどれくらい汚かったか聞かれ、大輔は答えます。「会場、[modifier]汚かったです。」"
   },
@@ -847,7 +985,13 @@ var stimuliPool = [
   },
   {
     "predicate": "汚い",
-    "attitude": "neutral",
+    "attitude": "neutral-positive",
+    "relationship": "stranger",
+    "text": "宿の入口で、これから泊まる客に、部屋がどれくらい汚いか聞かれ、大輔は答えます。「お部屋、[modifier]汚くないです。」"
+  },
+  {
+    "predicate": "汚い",
+    "attitude": "neutral-negative",
     "relationship": "stranger",
     "text": "宿の入口で、これから泊まる客に、部屋がどれくらい汚いか聞かれ、大輔は答えます。「お部屋、[modifier]汚いです。」"
   },

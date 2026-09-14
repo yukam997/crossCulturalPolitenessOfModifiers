@@ -125,6 +125,45 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
 .cell.pol-neg { background: #fff1f2; border-color: #fda4af; }
 .cell.pol-aff { background: #eff6ff; border-color: #93c5fd; }
 .cell.pol-mixed { background: linear-gradient(135deg,#fff1f2 0 50%,#eff6ff 50% 100%); border-color: #c4b5fd; }
+
+/* ---- per-cell histograms (one bar per answer) ---- */
+.hist {
+  position: relative; display: flex; align-items: flex-end; gap: 1px;
+  height: 64px; width: 100%; margin-top: 3px;
+  border-bottom: 1px solid #94a3b8; box-sizing: border-box;
+}
+.hist-bar {
+  flex: 1 1 0; min-width: 1px; align-self: flex-end;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: transparent; border-radius: 1px 1px 0 0; cursor: pointer;
+  overflow: hidden;
+}
+.hist-bar:hover { filter: brightness(.82); }
+.hist-bar.zero { background: transparent; border-bottom: 2px solid #cbd5e1; min-height: 0; }
+/* stacked segments: affirmative on top, negated at the bottom */
+.hseg { width: 100%; }
+.hseg.aff { background: #60a5fa; }          /* affirmative frame */
+.hseg.neg { background: #fb7185; }          /* negated frame */
+.hist-bar.sel .hseg.aff { background: #2563eb; }
+.hist-bar.sel .hseg.neg { background: #e11d48; }
+.barkey { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #475569; }
+.barkey i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.hist-bar.sel { outline: 2px solid #0f172a; outline-offset: -1px; z-index: 2; }
+.hist-ref {
+  position: absolute; left: 0; right: 0; bottom: 0; top: 0;
+  display: flex; align-items: flex-end; gap: 1px; pointer-events: none;
+}
+.hist-ref span {
+  flex: 1 1 0; min-width: 1px; align-self: flex-end;
+  border-top: 2px dotted #334155; opacity: .55;
+}
+.hist-meta {
+  display: flex; justify-content: space-between; gap: 4px;
+  font-size: 9.5px; color: #475569; margin-top: 2px; line-height: 1.2;
+}
+.hist-empty { font-size: 10px; color: #94a3b8; text-align: center; padding: 18px 0; }
+.merge-mark { color: #7c3aed; font-size: 10px; margin-left: 3px; cursor: help; }
+.cell.histmode { min-height: 96px; }
 .cell.highlight { outline: 3px solid #16a34a; outline-offset: -2px; background: #dcfce7; }
 .chip.pol-neg { border-style: dashed; border-width: 2px; }
 .chip.discrepant { box-shadow: 0 0 0 2px #f59e0b; }
@@ -196,7 +235,23 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
 <div id="status"></div>
 
 <div class="controls">
-  <label><input type="checkbox" id="toggle-all"> Show all answers in every cell<span class="hint-inline">(then click tags in the grid to select them)</span></label>
+  <label>Cell view:
+    <select id="view-mode" style="font-size:13px;padding:4px 6px;border-radius:5px;border:1px solid #cbd5e1;">
+      <option value="summary">summary counts</option>
+      <option value="tags">all answers as tags</option>
+      <option value="histogram">histogram (one bar per answer)</option>
+    </select>
+  </label>
+  <span id="hist-opts" style="display:none;align-items:center;gap:10px;">
+    <label>Bars:
+      <select id="hist-scale" style="font-size:13px;padding:4px 6px;border-radius:5px;border:1px solid #cbd5e1;">
+        <option value="shared">count (same scale on all cells)</option>
+        <option value="prop">% within cell</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="hist-ref"> overlay pooled average</label>
+    <span class="barkey"><i style="background:#fb7185;"></i>negated <i style="background:#60a5fa;margin-left:6px;"></i>affirmative</span>
+  </span>
   <label>Match:
     <select id="match-mode" style="font-size:13px;padding:4px 6px;border-radius:5px;border:1px solid #cbd5e1;">
       <option value="any">any of the selected</option>
@@ -210,6 +265,7 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
       <option value="aff">affirmative only</option>
     </select>
   </label>
+  <label><input type="checkbox" id="merge-spellings" checked> merge equivalent spellings<span class="hint-inline">(超 / ちょう etc. count as one)</span></label>
   <button class="btn" id="clear-btn">Reset filters</button>
 </div>
 
@@ -239,6 +295,7 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
     <div class="sidebar-title">
       All answers &mdash; click any number
       <span style="float:right;font-weight:400;">
+        <button class="btn" id="sel-all" style="padding:2px 7px;font-size:11px;">All</button>
         <button class="btn" id="sel-top" style="padding:2px 7px;font-size:11px;">Top 5</button>
         <button class="btn" id="sel-none" style="padding:2px 7px;font-size:11px;">None</button>
       </span>
@@ -260,6 +317,69 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
 var CONFIG = {"demoEntries": [{"subject_id": "test", "predicate": "遅れている", "attitude": "non-committal", "relationship": "friend", "sentence": "Peter and a friend are discussing how to get there. Not wanting to assert his opinion, Peter cautiously replies: \"The bus seems [modifier] delayed, but it's easy since there's no transfer.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "warning", "relationship": "friend", "sentence": "A friend finishes decorating the clubroom and shows Peter. Wanting to be helpful, Peter points out hesitantly: \"Just that colour combination doesn't look [modifier] nice to me. What about changing it?\"", "answers": ["asfd"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "neutral", "relationship": "colleague", "sentence": "A colleague who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\"", "answers": ["fasd"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "acknowledge", "relationship": "boss", "sentence": "Peter visits, half-convinced, a restaurant his boss strongly recommended. However, the food tasted good, just as his boss had said. The next day, he thanks his boss: \"It tasted [modifier]good. Thank you for telling me about it.\"", "answers": ["fas"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "encouraging", "relationship": "colleague", "sentence": "The entertainment segment a colleague was in charge of didn't land as well as hoped. Seeing him looking apologetic, Peter reassures him: \"It was [modifier] funny. Just carrying the room like that was enough, I think.\"", "answers": ["af"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "annoyed", "relationship": "boss", "sentence": "On an urgent matter, the application Peter submitted to his boss still hasn't been reviewed days later. Irritated, Peter says: \"The review of my application seems to be [modifier] late — would it be possible for you to look at it today?\"", "answers": ["asfd"], "feedback": ""}, {"subject_id": "test", "predicate": "汚い", "attitude": "acknowledge", "relationship": "friend", "sentence": "A friend takes Peter to a restaurant he had been avoiding because it was old, saying it is well looked after. He was half-convinced. However, it's clean, just as the friend had said. He thanks his friend: \"You're right, it's not [modifier] dirty. Thanks for bringing me here.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "neutral", "relationship": "friend", "sentence": "Back from lunch, Peter is asked by a friend who had been curious about the place how good the food was, and he answers: \"The food tasted [modifier] good.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "寒い", "attitude": "warning", "relationship": "colleague", "sentence": "The colleague who booked an outdoor terrace for the welcome party shows Peter the plan. Wanting to be helpful, Peter points out hesitantly: \"I think it's [modifier] cold there this time of year. What about going indoors?\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "encouraging", "relationship": "friend", "sentence": "The lines in a drawing a friend made for him came out uneven. Since she apologizes for it, Peter reassures her: \"It's drawn [modifier] nicely. The lines can be cleaned up later.\"", "answers": ["sdf"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "annoyed", "relationship": "colleague", "sentence": "On an urgent job they are handling together, the work Peter handed to a colleague is days behind. He still hasn't touched it and looks like he has time on his hands; irritated, Peter says: \"The work I asked you for is [modifier] late. Could you get it to me by the end of today?\"", "answers": ["df"], "feedback": ""}, {"subject_id": "test", "predicate": "寒い", "attitude": "non-committal", "relationship": "colleague", "sentence": "Peter is asked by a colleague for his view on what to wear on the day of the site visit. Not wanting to assert his opinion, he cautiously replies: \"It seems [modifier] cold that day, but that's light and easy to move in.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "encouraging", "relationship": "stranger", "sentence": "A street performer, bothered that hardly anyone gathered, apologizes to Peter, who had stopped to watch. Peter reassures him: \"It was [modifier] funny. Some people did stay to the end.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "汚い", "attitude": "non-committal", "relationship": "boss", "sentence": "Peter is asked by his boss for his view on accommodation for the business trip. Not wanting to assert his opinion, he cautiously replies: \"It might be [modifier] dirty, but it's close to the station and cheap.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "acknowledge", "relationship": "colleague", "sentence": "Peter watched, half-convinced, a comedy film a colleague swore was great. However, it was funny, just as the colleague had said. He thanks the colleague: \"That was [modifier]funny. Thank you for the recommendation.\"", "answers": ["adsf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "annoyed", "relationship": "friend", "sentence": "A friend keeps piling bags into the room Peter had arranged down to the furniture placement for their guests, ruining it. Irritated, Peter says: \"I just got it all set up, and now it's not [modifier] nice to look at!\"", "answers": ["dsaf"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "neutral", "relationship": "stranger", "sentence": "A passenger who is deciding whether to use the same bus route for their commute asks Peter how delayed the bus was this morning, and he answers: \"The bus was [modifier] delayed.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "non-committal", "relationship": "stranger", "sentence": "A customer sharing his table asks Peter which dish to get. Not wanting to assert his opinion, Peter cautiously replies: \"That one might not taste [modifier] good, but it's cheap and a big portion.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "面白い", "attitude": "warning", "relationship": "boss", "sentence": "The boss runs by Peter the anecdote he plans to tell at the morning meeting. Wanting to be helpful, Peter points out hesitantly: \"I'm not sure that opener comes across as [modifier] funny to me. Maybe it's worth shortening.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "美味しい", "attitude": "encouraging", "relationship": "boss", "sentence": "The boss brings in sweets he made with his family, but they are overbaked. Seeing that he is bothered by it, Peter reassures him: \"They taste [modifier] good. Nice and toasty — I like them like this.\"", "answers": ["asdf"], "feedback": ""}, {"subject_id": "test", "predicate": "汚い", "attitude": "warning", "relationship": "stranger", "sentence": "A server in the restaurant finishes setting Peter's table and is about to move to the next. Wanting to be helpful, Peter points out hesitantly: \"Just the edge of that table looks [modifier] dirty. Maybe it's worth wiping down.\"", "answers": ["asfd"], "feedback": ""}, {"subject_id": "test", "predicate": "寒い", "attitude": "acknowledge", "relationship": "stranger", "sentence": "A shop assistant recommends a coat Peter had assumed would be cold because it was thin, insisting it is warm. He bought it half-convinced and wore it outside. However, it was warm, just as the assistant had said. Later, he thanks the assistant: \"I wasn't [modifier] cold. Thank you for recommending it.\"", "answers": ["sdf"], "feedback": ""}, {"subject_id": "test", "predicate": "綺麗", "attitude": "annoyed", "relationship": "stranger", "sentence": "A passerby has parked a bicycle in the flower bed outside the shop that Peter had been tending since morning, knocking the flowers over. Irritated, Peter stops the person and says: \"I had just got it looking right and now it's not [modifier] nice to look at. Could you move it?\"", "answers": ["sdf"], "feedback": ""}, {"subject_id": "test", "predicate": "遅れている", "attitude": "neutral", "relationship": "boss", "sentence": "The boss is planning to use the same bus route for a business trip and asks Peter how delayed the bus was this morning. Peter answers: \"The bus was [modifier] delayed.\"", "answers": ["as"], "feedback": ""}], "relationshipOrder": ["boss", "colleague", "friend", "stranger"], "attitudeOrder": ["neutral", "non-committal", "encouraging", "acknowledge", "warning", "annoyed"], "predicateOrder": ["面白い", "美味しい", "綺麗", "遅れている", "寒い", "汚い"], "predicateGloss": {"面白い": "interesting / funny", "美味しい": "tasty / delicious", "綺麗": "clean / pretty", "遅れている": "delayed / late", "寒い": "cold", "汚い": "dirty / messy"}, "labels": {"neutral": "Neutral", "non-committal": "Non-committal", "encouraging": "Encouraging", "acknowledge": "Acknowledging", "warning": "Warning", "annoyed": "Annoyed", "boss": "Boss", "colleague": "Colleague", "friend": "Friend", "stranger": "Stranger"}, "palette": [{"bg": "#fef3c7", "bd": "#d97706", "fg": "#92400e"}, {"bg": "#fee2e2", "bd": "#dc2626", "fg": "#991b1b"}, {"bg": "#d1fae5", "bd": "#059669", "fg": "#065f46"}, {"bg": "#dbeafe", "bd": "#2563eb", "fg": "#1e40af"}, {"bg": "#cffafe", "bd": "#0891b2", "fg": "#155e75"}, {"bg": "#ede9fe", "bd": "#7c3aed", "fg": "#5b21b6"}, {"bg": "#fce7f3", "bd": "#db2777", "fg": "#9d174d"}, {"bg": "#ecfccb", "bd": "#65a30d", "fg": "#3f6212"}, {"bg": "#ffedd5", "bd": "#ea580c", "fg": "#9a3412"}, {"bg": "#e0e7ff", "bd": "#4f46e5", "fg": "#3730a3"}], "negatedByAttitude": {"neutral": [], "non-committal": ["面白い", "美味しい", "綺麗"], "warning": ["面白い", "美味しい", "綺麗"], "annoyed": ["面白い", "美味しい", "綺麗"], "encouraging": ["遅れている", "寒い", "汚い"], "acknowledge": ["遅れている", "寒い", "汚い"]}};
 
 /* ---------- CSV parsing (RFC4180: quoted fields, "" escapes, newlines, CRLF, BOM) ---------- */
+/* ============================================================
+   EQUIVALENT SPELLINGS
+   Answers that mean the same thing but were typed differently
+   (kanji vs. kana) are counted as ONE label. The key on the left
+   is the label that gets displayed; everything in its list is
+   folded into it.
+   To add more, just extend this object -- nothing else to change.
+   ============================================================ */
+var ANSWER_SYNONYMS = {
+  '超':     ['ちょう'],
+  '結構':   ['けっこう'],
+  '凄く':   ['すごく'],
+  '少し':   ['すこし'],
+  '全く':   ['まったく'],
+  '若干':   ['じゃっかん']
+};
+
+/* variant -> canonical label lookup, built once from the table above */
+var CANON = {};
+Object.keys(ANSWER_SYNONYMS).forEach(function (canonical) {
+  CANON[canonical] = canonical;
+  ANSWER_SYNONYMS[canonical].forEach(function (v) { CANON[v] = canonical; });
+});
+
+var mergeSpellings = true;          // toggled by the "merge equivalent spellings" checkbox
+var mergedVariants = {};            // canonical -> { variant: count } actually seen in the data
+
+function canonicalAnswer(a) {
+  var key = String(a == null ? '' : a).trim();
+  return (mergeSpellings && CANON[key]) ? CANON[key] : key;
+}
+
+/* Rebuild every entry's answer list from its untouched original, applying
+   (or not applying) the synonym table. Also records which variants really
+   occur, so the UI can show what got folded together. */
+function applyMerging() {
+  mergedVariants = {};
+  entries.forEach(function (e) {
+    if (!e._rawAnswers) e._rawAnswers = e.answers.slice();
+    e.answers = e._rawAnswers.map(function (a) {
+      var raw = String(a).trim();
+      var canon = canonicalAnswer(raw);
+      if (mergeSpellings && canon !== raw) {
+        mergedVariants[canon] = mergedVariants[canon] || {};
+        mergedVariants[canon][raw] = (mergedVariants[canon][raw] || 0) + 1;
+      } else if (mergeSpellings && CANON[raw]) {
+        mergedVariants[canon] = mergedVariants[canon] || {};
+        mergedVariants[canon][raw] = (mergedVariants[canon][raw] || 0) + 1;
+      }
+      return canon;
+    });
+  });
+}
+
+/* "超 (超 ×4, ちょう ×2)" for tooltips, or null if nothing was folded in */
+function variantNote(canonical) {
+  var v = mergedVariants[canonical];
+  if (!v) return null;
+  var keys = Object.keys(v);
+  if (keys.length < 2) return null;
+  return keys.map(function (k) { return k + ' ×' + v[k]; }).join(', ');
+}
+
 function parseCSV(text) {
   if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
   var rows = [], row = [], field = '', i = 0, inQ = false;
@@ -318,7 +438,10 @@ function splitAnswers(raw) {
       }
     } catch (e) { /* fall through to delimiter split */ }
   }
-  return raw.split(/[;\n]/).map(function (s) { return s.trim(); }).filter(Boolean);
+  // Delimiters: ";", newline, and the Japanese full-width space (U+3000).
+  // A normal ASCII space is NOT a delimiter, so multi-word English answers
+  // stay intact. (Matches analyze_answers.py.)
+  return raw.split(/[;\n　]/).map(function (s) { return s.trim(); }).filter(Boolean);
 }
 
 function isTruthy(v) {
@@ -408,6 +531,9 @@ var activePred = {}, activeSubj = {};
 var selectedAnswers = {};            // set of answers currently highlighted
 var matchMode = 'any';               // 'any' = union, 'all' = intersection
 var showAll = false, polFilter = 'all';
+var viewMode = 'summary';            // 'summary' | 'tags' | 'histogram'
+var histScale = 'shared';            // 'shared' = absolute counts | 'prop' = % within cell
+var histRef = false;                 // overlay the pooled-average profile on every cell
 function selectedList() {
   return Object.keys(selectedAnswers).filter(function (k) { return selectedAnswers[k]; });
 }
@@ -430,6 +556,8 @@ function orderedUnique(values, preferred) {
 
 function loadEntries(list) {
   entries = list;
+  entries.forEach(function (e) { e._rawAnswers = e.answers.slice(); });
+  applyMerging();
   RELS = orderedUnique(entries.map(function (e) { return e.relationship; }), CONFIG.relationshipOrder);
   ATTS = orderedUnique(entries.map(function (e) { return e.attitude; }), CONFIG.attitudeOrder);
   PREDS = orderedUnique(entries.map(function (e) { return e.predicate; }), CONFIG.predicateOrder);
@@ -460,7 +588,9 @@ function recompute() {
   vis.forEach(function (e) {
     e.answers.forEach(function (a) {
       var info = answerInfo[a] = answerInfo[a] || { count: 0, predicates: {}, subjects: {} };
-      info.count++; info.predicates[e.predicate] = true; info.subjects[e.subject_id] = true;
+      info.count++;
+      info.predicates[e.predicate] = (info.predicates[e.predicate] || 0) + 1;
+      info.subjects[e.subject_id] = true;
     });
   });
   allAnswers = Object.keys(answerInfo).sort(function (a, b) {
@@ -525,10 +655,159 @@ function renderParticipants() {
     SUBJECTS.length + ' participant' + (SUBJECTS.length === 1 ? '' : 's');
 }
 
+/* ---------- histogram helpers ----------
+   The bar set is the SAME list, in the SAME order, for every cell, so the
+   shapes are directly comparable. It is the current selection if anything is
+   selected, otherwise every answer on screen. */
+function histBars() {
+  var sel = selectedList();
+  if (!sel.length) return allAnswers.slice();
+  return allAnswers.filter(function (a) { return selectedAnswers[a]; });
+}
+
+/* An answer keeps one colour everywhere: that of the predicate it most often
+   appeared with (ties broken by predicate order). */
+function dominantPredicate(a) {
+  var info = answerInfo[a];
+  if (!info) return null;
+  var best = null, n = -1;
+  PREDS.forEach(function (p) {
+    var c = info.predicates[p] || 0;
+    if (c > n) { n = c; best = p; }
+  });
+  return n > 0 ? best : null;
+}
+
+/* Per bar: how much of it came from negated trials vs. affirmative ones. */
+function countsForCell(answers, bars) {
+  var idx = {}, out = [];
+  bars.forEach(function (b, i) { idx[b] = i; out.push({ neg: 0, aff: 0, total: 0 }); });
+  answers.forEach(function (a) {
+    var i = idx[a.text];
+    if (i === undefined) return;
+    if (a.pol === 'neg') out[i].neg++; else out[i].aff++;
+    out[i].total++;
+  });
+  return out;
+}
+
+/* Pooled profile across every cell -- used for the optional reference overlay. */
+function pooledProfile(bars) {
+  var idx = {}, out = bars.map(function () { return 0; }), total = 0;
+  bars.forEach(function (b, i) { idx[b] = i; });
+  Object.keys(cellMap).forEach(function (k) {
+    cellMap[k].forEach(function (e) {
+      e.answers.forEach(function (a) {
+        var i = idx[a];
+        if (i !== undefined) { out[i]++; total++; }
+      });
+    });
+  });
+  return total ? out.map(function (c) { return c / total; }) : out;
+}
+
+function buildHistogram(cell, answers, bars, sharedMax, pooled) {
+  var counts = countsForCell(answers, bars);
+  var total = counts.reduce(function (s, c) { return s + c.total; }, 0);
+
+  if (!bars.length) {
+    var none = document.createElement('div');
+    none.className = 'hist-empty';
+    none.textContent = 'no answers to plot';
+    cell.appendChild(none);
+    return;
+  }
+
+  var box = document.createElement('div');
+  box.className = 'hist';
+
+  // Reference outline (pooled average), drawn behind the bars.
+  if (pooled) {
+    var ref = document.createElement('div');
+    ref.className = 'hist-ref';
+    pooled.forEach(function (p) {
+      var s = document.createElement('span');
+      var h = histScale === 'prop'
+        ? p * 100
+        : (sharedMax > 0 ? (p * total) / sharedMax * 100 : 0);
+      s.style.height = Math.max(0, Math.min(100, h)) + '%';
+      ref.appendChild(s);
+    });
+    box.appendChild(ref);
+  }
+
+  bars.forEach(function (a, i) {
+    var cc = counts[i];
+    var c = cc.total;
+    var pct = histScale === 'prop'
+      ? (total > 0 ? (c / total) * 100 : 0)
+      : (sharedMax > 0 ? (c / sharedMax) * 100 : 0);
+    var bar = document.createElement('div');
+    bar.className = 'hist-bar' + (c === 0 ? ' zero' : '') + (isSelected(a) ? ' sel' : '');
+    bar.style.height = Math.max(c > 0 ? 2 : 0, pct) + '%';
+    // Split the bar: affirmative on top, negated at the bottom.
+    if (c > 0) {
+      if (cc.aff > 0) {
+        var segA = document.createElement('div');
+        segA.className = 'hseg aff';
+        segA.style.height = (cc.aff / c * 100) + '%';
+        bar.appendChild(segA);
+      }
+      if (cc.neg > 0) {
+        var segN = document.createElement('div');
+        segN.className = 'hseg neg';
+        segN.style.height = (cc.neg / c * 100) + '%';
+        bar.appendChild(segN);
+      }
+    }
+    bar.title = a + '\n' + c + ' of ' + total + ' answer(s) in this cell' +
+      (total ? ' (' + ((c / total) * 100).toFixed(1) + '%)' : '') +
+      '\n  negated: ' + cc.neg + '   affirmative: ' + cc.aff +
+      '\nclick to select this answer';
+    bar.onclick = function (ev) {
+      ev.stopPropagation();
+      if (selectedAnswers[a]) delete selectedAnswers[a]; else selectedAnswers[a] = true;
+      renderNote(); renderTags(); renderGrid();
+    };
+    box.appendChild(bar);
+  });
+  cell.appendChild(box);
+
+  var meta = document.createElement('div');
+  meta.className = 'hist-meta';
+  var left = document.createElement('span');
+  left.textContent = 'n=' + total;
+  var right = document.createElement('span');
+  right.textContent = histScale === 'prop'
+    ? (total ? 'max ' + Math.round(Math.max.apply(null, counts.map(function (c) { return c.total; })) / total * 100) + '%' : '')
+    : 'top ' + Math.max.apply(null, counts.map(function (c) { return c.total; })) + '/' + sharedMax;
+  meta.appendChild(left); meta.appendChild(right);
+  cell.appendChild(meta);
+}
+
 function renderGrid() {
   var grid = document.getElementById('grid');
-  grid.style.gridTemplateColumns = '120px repeat(' + ATTS.length + ', minmax(108px, 1fr))';
+  var isHist = viewMode === 'histogram';
+  grid.style.gridTemplateColumns = '120px repeat(' + ATTS.length + ', minmax(' +
+    (isHist ? 150 : 108) + 'px, 1fr))';
   grid.innerHTML = '';
+
+  /* One shared bar set + one shared y-scale, so every cell is comparable. */
+  var histBarList = [], histMax = 0, histPooled = null;
+  if (isHist) {
+    histBarList = histBars();
+    Object.keys(cellMap).forEach(function (k) {
+      var ans = [];
+      cellMap[k].forEach(function (e) {
+        var pol = polarityOf(e);
+        e.answers.forEach(function (a) { ans.push({ text: a, pol: pol }); });
+      });
+      countsForCell(ans, histBarList).forEach(function (c) {
+        if (c.total > histMax) histMax = c.total;
+      });
+    });
+    if (histRef) histPooled = pooledProfile(histBarList);
+  }
   grid.appendChild(document.createElement('div'));
   ATTS.forEach(function (a) {
     var h = document.createElement('div');
@@ -557,7 +836,10 @@ function renderGrid() {
         e.answers.forEach(function (a) { answers.push({ text: a, pred: e.predicate, subj: e.subject_id, pol: pol, bad: bad }); });
       });
 
-      if (showAll) {
+      if (isHist) {
+        cell.className += ' histmode';
+        buildHistogram(cell, answers, histBarList, histMax, histPooled);
+      } else if (viewMode === 'tags') {
         var wrap = document.createElement('div');
         wrap.className = 'cell-chips';
         answers.forEach(function (a) {
@@ -634,6 +916,14 @@ function renderTags() {
     chip.className = 'tag-chip' + (isSelected(a) ? ' selected' : '');
     var lab = document.createElement('span');
     lab.textContent = a;
+    var vnote = variantNote(a);
+    if (vnote) {
+      var m = document.createElement('span');
+      m.className = 'merge-mark';
+      m.textContent = '⇄';          // ⇄ : spellings folded together
+      m.title = 'merged spellings: ' + vnote;
+      lab.appendChild(m);
+    }
     chip.appendChild(lab);
     var sw = document.createElement('span');
     sw.className = 'tag-swatches';
@@ -780,7 +1070,25 @@ drop.addEventListener('drop', function (e) {
 document.getElementById('inc-practice').onchange = function () {
   if (lastText) handleText(lastText, 'the same file');
 };
-document.getElementById('toggle-all').onchange = function (e) { showAll = e.target.checked; renderGrid(); };
+document.getElementById('view-mode').onchange = function (e) {
+  viewMode = e.target.value;
+  showAll = (viewMode === 'tags');
+  document.getElementById('hist-opts').style.display =
+    viewMode === 'histogram' ? 'inline-flex' : 'none';
+  renderGrid();
+};
+document.getElementById('merge-spellings').onchange = function (e) {
+  mergeSpellings = e.target.checked;
+  applyMerging();
+  selectedAnswers = {};   // labels change, so old selections no longer apply
+  renderAll();
+};
+document.getElementById('hist-scale').onchange = function (e) { histScale = e.target.value; renderGrid(); };
+document.getElementById('hist-ref').onchange = function (e) { histRef = e.target.checked; renderGrid(); };
+document.getElementById('sel-all').onclick = function () {
+  allAnswers.forEach(function (a) { selectedAnswers[a] = true; });
+  renderNote(); renderTags(); renderGrid();
+};
 document.getElementById('pol-filter').onchange = function (e) { polFilter = e.target.value; renderAll(); };
 document.getElementById('match-mode').onchange = function (e) {
   matchMode = e.target.value; renderNote(); renderGrid();
