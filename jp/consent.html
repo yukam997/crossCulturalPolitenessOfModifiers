@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  The consent.html displays the text of your IRB-approved
+  consent form.  Even if you are not required to provide
+  a consent form, it is helpful to use this form to
+  describe what people can do if an error comes up, etc...
+
+-->
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>心理学実験 － 研究参加同意書</title>
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+        <link href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css" rel="stylesheet" type="text/css" />
+        <link href="styles.css" rel="stylesheet" type="text/css" />
+		<style>
+			@media print {
+				body * {
+					visibility: hidden;
+				}
+				.legal, .legal * {
+					visibility: visible;
+				}
+				.legal {
+					position: absolute;
+					left: 0;
+					top: 0;
+					overflow:visible;
+				}
+			}
+			ul {
+				list-style-position: inside;
+			}
+		</style>
+    </head>
+    <body>
+    <div class="jspsych-content-wrapper">
+        <div class="jspsych-content" style="text-align:left;">
+            <h1>研究へのご参加について、同意をお願いします</h1>
+            <hr />
+            <p>本研究ではオンライン上の短いアンケートにご回答いただきます。アンケートでは、提示される文章を読んでいただき、質問に答えていただきます。本研究へのご参加は任意であり、いつでも同意を撤回することができます。</p>
+            <p>注：日本財団 HUMAIのプログラム関係者、および奨学金受給者は対象外ですので回答できません。</p>
+
+            <p>所要時間は約15分です。ご参加の謝礼として300円をお支払いします。</p>
+
+            <p>本研究に伴うリスクはありません。研究データはスタンフォード大学の基準に従って安全に保管され、機密性が損なわれるリスクは最小限に抑えられます。研究の実施中、および研究成果として公表・記述されるすべてのデータにおいて、個人のプライバシーは保護されます。また、プライバシー保護のため、お名前・ご住所・電話番号など、個人を特定できる情報はご記入にならないようお願いいたします。</p>
+
+            <p>本研究の内容・手続き・リスクおよび利益についてご質問、ご懸念、苦情などがございましたら、研究責任者の Yuka Machino（<a href="mailto:ymachino@stanford.edu">ymachino@stanford.edu</a>）までご連絡ください。</p>
+            <p>本研究の実施方法にご不満がある場合、または研究内容や参加者としての権利に関するご懸念・苦情・一般的なご質問がある場合は、研究チームとは独立した担当者にお話しいただくことができます。スタンフォード大学研究倫理審査委員会（IRB）まで、電話（650-723-2480）またはメール（<a href="mailto:irbnonmed@stanford.edu">irbnonmed@stanford.edu</a>）にてご連絡ください。</p>
+            <p>このページは、ご自身の記録として保存または印刷してください。</p>
+
+            <p>下の「同意します」ボタンを選択することで、あなたは以下の内容を確認したものとみなされます。</p>
+
+            <ul>
+                <li>18歳以上である</li>
+                <li>日本語を日常的に話している</li>
+                <li>この同意書を読んだ</li>
+                <li>本研究に参加することに同意する</li>
+            </ul>
+
+            <hr />
+            <p><b>以上の内容をご理解いただき、同意されますか？</b></p>
+
+            <p style="text-align:center;">本研究へのご参加に同意される場合は、下の「同意します」ボタンを選択してください。</p>
+            <p style="text-align:center;">
+                <button type="button" id="agree" class="jspsych-btn">同意します</button>
+            </p>
+        </div>
+    </div>
+    <script>
+        // Advance into the actual experiment once consent is given.
+        document.getElementById('agree').addEventListener('click', function () {
+            // Preserve the URL query string (e.g. ?PROLIFIC_PID=...) so
+            // index.html can still read PROLIFIC_PID after this redirect.
+            window.location.href = 'index.html' + window.location.search;
+        });
+    </script>
+    </body>
+</html>

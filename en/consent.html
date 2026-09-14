@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  The consent.html displays the text of your IRB-approved
+  consent form.  Even if you are not required to provide
+  a consent form, it is helpful to use this form to
+  describe what people can do if an error comes up, etc...
+
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Psychology Experiment - Informed Consent Form</title>
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+        <link href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css" rel="stylesheet" type="text/css" />
+        <link href="styles.css" rel="stylesheet" type="text/css" />
+		<style>
+			@media print {
+				body * {
+					visibility: hidden;
+				}
+				.legal, .legal * {
+					visibility: visible;
+				}
+				.legal {
+					position: absolute;
+					left: 0;
+					top: 0;
+					overflow:visible;
+				}
+			}
+			ul {
+				list-style-position: inside;
+			}
+		</style>
+    </head>
+    <body>
+    <div class="jspsych-content-wrapper">
+        <div class="jspsych-content" style="text-align:left;">
+            <h1>We need your consent to proceed</h1>
+            <hr />
+            <p>You are invited to participate in a research study. You will be asked to fill out a brief on-line questionnaire. The questionnaires will involve reading information, and answering questions. Participation in this research is voluntary, and you are free to withdraw your consent at any time.</p>
+
+            <p>Your participation will take approximately 12 minutes. You will receive $3.5 as payment for your participation.</p>
+
+            <p>There are no risks associated with this study. Study data will be stored securely, in compliance with Stanford University standards, minimizing the risk of confidentiality breach. Your individual privacy will be maintained during the research and in all published and written data resulting from the study. Additionally, to help us protect your privacy, please do not provide any personally identifiable information such as your name, address, or phone number.</p>
+
+            <p>If you have any questions, concerns or complaints about this research, its procedures, risks and benefits, contact the Protocol Director, Yuka Machino at <a href="mailto:ymachino@stanford.edu"> ymachino@stanford.edu</a>.</p>
+            <p>If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at 650-723-2480, or email at <a href="mailto:irbnonmed@stanford.edu"> irbnonmed@stanford.edu</a>.</p>
+            <p>Please save or print a copy of this page for your records.</p>
+
+            <p>By selecting the "I agree" button below, I acknowledge that:</p>
+
+            <ul>
+                <li>I am 18 or older,</li>
+                <li>I have normal vision or wear corrective lenses,</li>
+                <li>I am a fluent English speaker,</li>
+                <li>I have read this consent form, and</li>
+                <li>I agree to take part in the research.</li>
+            </ul>
+
+            <hr />
+            <p><b>Do you understand and consent to these terms?</b></p>
+
+            <p style="text-align:center;">If you agree to participate in this research, please select the "I agree" button below.</p>
+            <p style="text-align:center;">
+                <button type="button" id="agree" class="jspsych-btn">I agree</button>
+            </p>
+        </div>
+    </div>
+    <script>
+        // Advance into the actual experiment once consent is given.
+        document.getElementById('agree').addEventListener('click', function () {
+            // Preserve the URL query string (e.g. ?PROLIFIC_PID=...) so
+            // index.html can still read PROLIFIC_PID after this redirect.
+            window.location.href = 'index.html' + window.location.search;
+        });
+    </script>
+    </body>
+</html>
