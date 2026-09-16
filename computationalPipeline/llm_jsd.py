@@ -201,4 +201,4 @@ def analyze(path, n_perm=2000, n_boot=1000, seed=0):
 
 if __name__ == "__main__":
     import sys
-    analyze(sys.argv[1] if len(sys.argv) > 1 else "/Users/yuka/Documents/Academics/Stanford/Research/crossCulturalPolitenessOfModifiers/computationalPipeline/EN_modifier_probs.csv")
+    analyze(sys.argv[1] if len(sys.argv) > 1 else "/Users/yuka/Documents/Academics/Stanford/Research/crossCulturalPolitenessOfModifiers/computationalPipeline/JP_modifier_probs.csv")
