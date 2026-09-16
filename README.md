@@ -1,4 +1,5 @@
 # crossCulturalPolitenessOfModifiers
-
-- analyze_answers.py takes raw responses and converts them
-- compue_jsd.py computes jsd of english and japanese responses, and outputs the difference
+- data_analysis/dataAnalysisConfidence.ipynb computes the Jennson Shannon Divergence between modifier answers for a given context (e.g. contexts where relationship==boss) and assesses significance.
+- computationalPipeline/ contains files to conduct the parallel experiment for a given language model.
+- en/ contains stimuli used for the behavioral experiment for English
+- jp/ contains stimuli used for the behavioral experiment for Japanese
