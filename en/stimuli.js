@@ -75,7 +75,7 @@ var stimuliPool = [
     "predicate": "面白い",
     "attitude": "annoyed",
     "relationship": "colleague",
-    "text": "At a work drinking party, a colleague keeps dredging up Peter's mistake for laughs. Peter can tell the others are laughing out of politeness, and, irritated, he says: \"That story is not [modifier] funny. Could you leave it there?\""
+    "text": "At company drinks, a colleague keeps dredging up Peter's mistake for laughs. Peter can tell the others are laughing out of politeness, and, irritated, he says: \"That story is not [modifier] funny. Could you leave it there?\""
   },
   {
     "predicate": "面白い",
@@ -87,7 +87,7 @@ var stimuliPool = [
     "predicate": "面白い",
     "attitude": "warning",
     "relationship": "boss",
-    "text": "The boss runs by Peter the anecdote he plans to tell at the morning meeting. Wanting to be helpful, Peter points out hesitantly: \"I'm not sure that opener comes across as [modifier] funny to me. Maybe it's worth shortening it?\""
+    "text": "The boss runs by Peter the humorous anecdote he plans to open the team meeting with. Wanting to be helpful, Peter points out hesitantly: \"That opener doesn't come across as [modifier] funny to me. Maybe it's worth shortening it?\""
   },
   {
     "predicate": "面白い",
@@ -117,13 +117,13 @@ var stimuliPool = [
     "predicate": "面白い",
     "attitude": "annoyed",
     "relationship": "boss",
-    "text": "The boss opens every meeting by using Peter's old mistake to lighten the mood. After the umpteenth time Peter has had enough, and once they are alone he says, irritated: \"Honestly, I don't [modifier] find the story funny, so I'd like you to let it go now.\""
+    "text": "The boss opens every meeting by using Peter's old mistake to lighten the mood. After the umpteenth time Peter has had enough, and once they are alone he says, irritated: \"Honestly, I don't find the story [modifier] funny, so I'd like you to let it go now.\""
   },
   {
     "predicate": "面白い",
     "attitude": "encouraging",
     "relationship": "boss",
-    "text": "The anecdote the boss told at the morning meeting didn't get much of a reaction. Seeing that he is bothered by it, Peter reassures him: \"It was [modifier] funny. It lightened the mood first thing in the morning.\""
+    "text": "The humorous anecdote the boss opened the team meeting with didn't get much of a reaction. Seeing that he is bothered by it, Peter reassures him: \"It was [modifier] funny. It lightened the mood first thing in the morning.\""
   },
   {
     "predicate": "面白い",
@@ -171,7 +171,7 @@ var stimuliPool = [
     "predicate": "美味しい",
     "attitude": "warning",
     "relationship": "friend",
-    "text": "The restaurant a friend picked for the reunion has gone downhill lately. Wanting to be helpful, Peter points out hesitantly: \"I hear the food there doesn't taste [modifier] good these days. What about we go somewhere else?\""
+    "text": "The restaurant a friend picked for the reunion has gone downhill lately. Wanting to be helpful, Peter points out hesitantly: \"I hear the food there doesn't taste [modifier] good these days. How about we go somewhere else?\""
   },
   {
     "predicate": "美味しい",
@@ -507,7 +507,7 @@ var stimuliPool = [
     "predicate": "遅れている",
     "attitude": "warning",
     "relationship": "friend",
-    "text": "A friend has planned the travel for the day of the reunion by bus. Wanting to be helpful, Peter points out hesitantly: \"The bus at that hour tends to be [modifier] delayed. What about we take the train?\""
+    "text": "A friend has planned the travel for the day of the reunion by bus. Wanting to be helpful, Peter points out hesitantly: \"The bus at that hour tends to be [modifier] delayed. How about we take the train?\""
   },
   {
     "predicate": "遅れている",
@@ -519,7 +519,7 @@ var stimuliPool = [
     "predicate": "遅れている",
     "attitude": "acknowledge",
     "relationship": "friend",
-    "text": "A friend recommends a bus route Peter had been avoiding because it was often delayed, saying the timetable has been revised. He rode it half-convinced. However, it arrived smoothly, just as the friend had said. He thanks his friend: \"The bus isn't [modifier] delayed. Thanks for telling me.\""
+    "text": "A friend recommends a bus route Peter had been avoiding because it was often delayed, saying the timetable has been revised. He rode it half-convinced. However, it arrived smoothly, just as the friend had said. He thanks his friend: \"The bus wasn't [modifier] delayed. Thanks for telling me.\""
   },
   {
     "predicate": "遅れている",
@@ -543,7 +543,7 @@ var stimuliPool = [
     "predicate": "遅れている",
     "attitude": "encouraging",
     "relationship": "friend",
-    "text": "The preparations a friend took on are running behind schedule. She apologizes for it, and Peter reassures her: \"It's not [modifier]late. We still have two days, so we'll make it fine.\""
+    "text": "The preparations a friend took on are running behind schedule. She apologizes for it, and Peter reassures her: \"It's not [modifier]late. We still have two days, so we'll be fine.\""
   },
   {
     "predicate": "遅れている",
@@ -561,7 +561,7 @@ var stimuliPool = [
     "predicate": "遅れている",
     "attitude": "acknowledge",
     "relationship": "colleague",
-    "text": "A colleague recommends a bus route Peter had been avoiding because it was often delayed, saying the timetable has been revised. He rode it half-convinced. However, it arrived smoothly, just as the colleague had said. He thanks the colleague: \"The bus isn't [modifier] delayed. Thanks for telling me.\""
+    "text": "A colleague recommends a bus route Peter had been avoiding because it was often delayed, saying the timetable has been revised. He rode it half-convinced. However, it arrived smoothly, just as the colleague had said. He thanks the colleague: \"The bus wasn't [modifier] delayed. Thanks for telling me.\""
   },
   {
     "predicate": "遅れている",
@@ -675,7 +675,7 @@ var stimuliPool = [
     "predicate": "寒い",
     "attitude": "warning",
     "relationship": "friend",
-    "text": "A friend suggests a riverside spot for the cherry blossom viewing. Wanting to be helpful, Peter points out hesitantly: \"I think it gets [modifier] cold there at night. What about we move it earlier?\""
+    "text": "A friend planning a hike to see the autumn leaves suggests setting out in the late afternoon. Wanting to be helpful, Peter points out hesitantly: \"I think it gets [modifier] cold up there in the late afternoon. How about we move it earlier?\""
   },
   {
     "predicate": "寒い",
@@ -927,7 +927,7 @@ var stimuliPool = [
     "predicate": "汚い",
     "attitude": "warning",
     "relationship": "boss",
-    "text": "The room the boss has designated for the discussion with the clients has stains on the wall and floor that won't come off. Wanting to be helpful, he points out hesitantly: \"It might look [modifier] dirty to them, so wouldn't it be better to move to a different room?\""
+    "text": "The room the boss has designated for the discussion with the clients has stains on the wall and floor that won't come off. Wanting to be helpful, Peter points out hesitantly: \"It might look [modifier] dirty to them, so wouldn't it be better to move to a different room?\""
   },
   {
     "predicate": "汚い",
