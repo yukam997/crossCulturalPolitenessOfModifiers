@@ -1,0 +1,545 @@
+[
+  {
+    "id": "ZjL0uhLyY8XuBtJnpwsI",
+    "comments": "",
+    "trials": [
+      {
+        "subject_id": "3ccn0hm23o",
+        "response": 0,
+        "stimulus": "<p class=\"stimulus\">In this study, you will read short scenarios. Each one contains a blank, marked [ ___ ], for you to fill in with a word or phrase of your choosing.</p><p class=\"stimulus\">Please read the scenario carefully and type words or phrases that would naturally fill the blank, given the situation described. After typing each option, press Enter to add it as its own tag &mdash; you can add as few or as many as you like.</p><p class=\"stimulus\">If you think the sentence works fine without anything in the blank, please enter \"none\".</p><p class=\"stimulus\">You will first see two practice examples, then move on to the 24 scenarios in the main study. There are no right or wrong answers &mdash; we are interested in your intuitive judgment.</p><b>When you are ready to begin, press the start button.</b>",
+        "trial_type": "html-button-response",
+        "time_elapsed": 1386,
+        "trial_index": 0,
+        "internal_node_id": "0.0-0.0",
+        "rt": 1385
+      },
+      {
+        "stimulus": "<img src=\"practice1_example.png\" alt=\"Screenshot of a sample answer\" style=\"max-width:100%; height:auto; display:block; margin:0 auto;\">",
+        "internal_node_id": "0.0-1.0",
+        "rt": 1024,
+        "time_elapsed": 2411,
+        "response": 0,
+        "trial_index": 1,
+        "practice_step": 1,
+        "trial_type": "html-button-response",
+        "is_practice": true,
+        "subject_id": "3ccn0hm23o"
+      },
+      {
+        "time_elapsed": 4011,
+        "is_practice": true,
+        "subject_id": "3ccn0hm23o",
+        "attitude": "",
+        "response": 0,
+        "trial_type": "html-button-response",
+        "internal_node_id": "0.0-2.0",
+        "stimulus": "<p class=\"example-label\">Practice 2</p><p class=\"stimulus\">Yamada had meetings all morning and <span class=\"blank\">[ ___ ]</span> had no time for lunch.</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\">",
+        "trial_index": 2,
+        "predicate": "",
+        "modifier_response_list": [
+          "asdf"
+        ],
+        "relationship": "",
+        "rt": 1599,
+        "sentence": "Yamada had meetings all morning and [modifier] had no time for lunch.",
+        "modifier_response": "asdf"
+      },
+      {
+        "trial_type": "html-button-response",
+        "trial_feedback": "",
+        "subject_id": "3ccn0hm23o",
+        "internal_node_id": "0.0-3.0",
+        "trial_index": 3,
+        "relationship": "colleague",
+        "modifier_response": "sdf",
+        "response": 0,
+        "attitude": "acknowledge",
+        "stimulus": "<p class=\"stimulus\">Daisuke orders, half-convinced, the new cafeteria dish a colleague swore was great. However, one bite in, it's tasty, just as the colleague had said. He thanks the colleague: \"This is <span class=\"blank\">[ ___ ]</span>tasty. Thanks for telling me.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "time_elapsed": 5611,
+        "is_practice": false,
+        "predicate": "美味しい",
+        "modifier_response_list": [
+          "sdf"
+        ],
+        "sentence": "Daisuke orders, half-convinced, the new cafeteria dish a colleague swore was great. However, one bite in, it's tasty, just as the colleague had said. He thanks the colleague: \"This is [modifier]tasty. Thanks for telling me.\"",
+        "rt": 1599
+      },
+      {
+        "time_elapsed": 6870,
+        "trial_type": "html-button-response",
+        "sentence": "Asked by a friend who is about to head out how cold it is outside, Daisuke answers: \"It's [modifier] cold.\"",
+        "subject_id": "3ccn0hm23o",
+        "modifier_response": "asfd",
+        "is_practice": false,
+        "rt": 1257,
+        "modifier_response_list": [
+          "asfd"
+        ],
+        "internal_node_id": "0.0-4.0",
+        "stimulus": "<p class=\"stimulus\">Asked by a friend who is about to head out how cold it is outside, Daisuke answers: \"It's <span class=\"blank\">[ ___ ]</span> cold.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "attitude": "neutral",
+        "response": 0,
+        "relationship": "friend",
+        "trial_index": 4,
+        "predicate": "寒い",
+        "trial_feedback": ""
+      },
+      {
+        "internal_node_id": "0.0-5.0",
+        "trial_feedback": "",
+        "is_practice": false,
+        "relationship": "friend",
+        "stimulus": "<p class=\"stimulus\">A friend dumps a huge amount of spice onto the dish Daisuke had been looking forward to, ruining it. Irritated, Daisuke says: \"The food is not <span class=\"blank\">[ ___ ]</span> tasty anymore!\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "response": 0,
+        "attitude": "annoyed",
+        "trial_type": "html-button-response",
+        "time_elapsed": 7561,
+        "subject_id": "3ccn0hm23o",
+        "modifier_response": "asdf",
+        "rt": 690,
+        "modifier_response_list": [
+          "asdf"
+        ],
+        "sentence": "A friend dumps a huge amount of spice onto the dish Daisuke had been looking forward to, ruining it. Irritated, Daisuke says: \"The food is not [modifier] tasty anymore!\"",
+        "trial_index": 5,
+        "predicate": "美味しい"
+      },
+      {
+        "predicate": "面白い",
+        "trial_type": "html-button-response",
+        "sentence": "Daisuke has come to return a video at a rental shop, and a customer standing nearby asks what he thought of it. Not wanting to assert his opinion, Daisuke cautiously replies: \"It wasn't [modifier] funny, but the visuals were beautiful.\"",
+        "modifier_response_list": [
+          "asfd"
+        ],
+        "trial_feedback": "asdf",
+        "subject_id": "3ccn0hm23o",
+        "trial_index": 6,
+        "rt": 1424,
+        "relationship": "stranger",
+        "internal_node_id": "0.0-6.0",
+        "response": 0,
+        "attitude": "non-committal",
+        "stimulus": "<p class=\"stimulus\">Daisuke has come to return a video at a rental shop, and a customer standing nearby asks what he thought of it. Not wanting to assert his opinion, Daisuke cautiously replies: \"It wasn't <span class=\"blank\">[ ___ ]</span> funny, but the visuals were beautiful.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "time_elapsed": 8986,
+        "modifier_response": "asfd",
+        "is_practice": false
+      },
+      {
+        "modifier_response": "a",
+        "internal_node_id": "0.0-7.0",
+        "stimulus": "<p class=\"stimulus\">The venue a colleague booked turns out to be a colder room than expected. Since she apologizes for it, Daisuke reassures her: \"It's not <span class=\"blank\">[ ___ ]</span>cold. Once people are in, nobody will notice.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "trial_index": 7,
+        "relationship": "colleague",
+        "attitude": "encouraging",
+        "response": 0,
+        "modifier_response_list": [
+          "a"
+        ],
+        "trial_feedback": "",
+        "predicate": "寒い",
+        "time_elapsed": 10061,
+        "rt": 1074,
+        "is_practice": false,
+        "trial_type": "html-button-response",
+        "sentence": "The venue a colleague booked turns out to be a colder room than expected. Since she apologizes for it, Daisuke reassures her: \"It's not [modifier]cold. Once people are in, nobody will notice.\"",
+        "subject_id": "3ccn0hm23o"
+      },
+      {
+        "modifier_response_list": [
+          "af\\"
+        ],
+        "trial_feedback": "",
+        "trial_type": "html-button-response",
+        "sentence": "A friend finishes tidying the room before guests arrive and shows Daisuke. Wanting to be helpful, Daisuke points out hesitantly: \"Just that shelf is [modifier] dirty. What about wiping it down?\"",
+        "subject_id": "3ccn0hm23o",
+        "predicate": "汚い",
+        "is_practice": false,
+        "relationship": "friend",
+        "rt": 4540,
+        "internal_node_id": "0.0-8.0",
+        "modifier_response": "af\\",
+        "attitude": "warning",
+        "response": 0,
+        "time_elapsed": 14603,
+        "stimulus": "<p class=\"stimulus\">A friend finishes tidying the room before guests arrive and shows Daisuke. Wanting to be helpful, Daisuke points out hesitantly: \"Just that shelf is <span class=\"blank\">[ ___ ]</span> dirty. What about wiping it down?\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "trial_index": 8
+      },
+      {
+        "sentence": "An hour into a meeting in a room where the boss has turned the air conditioning down, Daisuke's hands are too cold to concentrate and everyone around him looks cold too. Irritated at a boss who isn't reading the room, Daisuke decides to turn the air conditioning up and says to him: \"It seems [modifier] cold in this room, so I'll turn the temperature up.\"",
+        "relationship": "boss",
+        "is_practice": false,
+        "subject_id": "3ccn0hm23o",
+        "time_elapsed": 15753,
+        "trial_type": "html-button-response",
+        "response": 0,
+        "attitude": "annoyed",
+        "predicate": "寒い",
+        "rt": 1149,
+        "trial_index": 9,
+        "trial_feedback": "",
+        "stimulus": "<p class=\"stimulus\">An hour into a meeting in a room where the boss has turned the air conditioning down, Daisuke's hands are too cold to concentrate and everyone around him looks cold too. Irritated at a boss who isn't reading the room, Daisuke decides to turn the air conditioning up and says to him: \"It seems <span class=\"blank\">[ ___ ]</span> cold in this room, so I'll turn the temperature up.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "modifier_response": "f",
+        "modifier_response_list": [
+          "f"
+        ],
+        "internal_node_id": "0.0-9.0"
+      },
+      {
+        "trial_index": 10,
+        "attitude": "encouraging",
+        "response": 0,
+        "internal_node_id": "0.0-10.0",
+        "stimulus": "<p class=\"stimulus\">The boss brings in sweets he made with his family, but they are overbaked. Seeing that he is bothered by it, Daisuke reassures him: \"They're <span class=\"blank\">[ ___ ]</span> tasty. Nice and toasty — I like them like this.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "trial_feedback": "",
+        "predicate": "美味しい",
+        "modifier_response_list": [
+          "fd"
+        ],
+        "time_elapsed": 16770,
+        "trial_type": "html-button-response",
+        "is_practice": false,
+        "subject_id": "3ccn0hm23o",
+        "relationship": "boss",
+        "sentence": "The boss brings in sweets he made with his family, but they are overbaked. Seeing that he is bothered by it, Daisuke reassures him: \"They're [modifier] tasty. Nice and toasty — I like them like this.\"",
+        "rt": 1015,
+        "modifier_response": "fd"
+      },
+      {
+        "internal_node_id": "0.0-11.0",
+        "predicate": "面白い",
+        "stimulus": "<p class=\"stimulus\">Daisuke is asked by a colleague for his view on the entertainment for the welcome party. Not wanting to assert his opinion, he cautiously replies: \"That plan might not be <span class=\"blank\">[ ___ ]</span> funny, but it's easy to prepare.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "time_elapsed": 17870,
+        "is_practice": false,
+        "response": 0,
+        "attitude": "non-committal",
+        "modifier_response_list": [
+          "fd"
+        ],
+        "subject_id": "3ccn0hm23o",
+        "trial_feedback": "",
+        "relationship": "colleague",
+        "modifier_response": "fd",
+        "trial_type": "html-button-response",
+        "trial_index": 11,
+        "rt": 1099,
+        "sentence": "Daisuke is asked by a colleague for his view on the entertainment for the welcome party. Not wanting to assert his opinion, he cautiously replies: \"That plan might not be [modifier] funny, but it's easy to prepare.\""
+      },
+      {
+        "trial_index": 12,
+        "modifier_response_list": [
+          "fdsa"
+        ],
+        "modifier_response": "fdsa",
+        "internal_node_id": "0.0-12.0",
+        "sentence": "Back from the warehouse, Daisuke is asked by a colleague about to go in how cold it is inside, and he answers: \"It's [modifier] cold.\"",
+        "relationship": "colleague",
+        "trial_type": "html-button-response",
+        "time_elapsed": 19153,
+        "is_practice": false,
+        "predicate": "寒い",
+        "subject_id": "3ccn0hm23o",
+        "stimulus": "<p class=\"stimulus\">Back from the warehouse, Daisuke is asked by a colleague about to go in how cold it is inside, and he answers: \"It's <span class=\"blank\">[ ___ ]</span> cold.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "attitude": "neutral",
+        "response": 0,
+        "trial_feedback": "",
+        "rt": 1282
+      },
+      {
+        "internal_node_id": "0.0-13.0",
+        "modifier_response_list": [
+          "fads"
+        ],
+        "is_practice": false,
+        "stimulus": "<p class=\"stimulus\">The boss runs by Daisuke the anecdote he plans to tell at the morning meeting. Wanting to be helpful, Daisuke points out hesitantly: \"I'm not sure that opener comes across as <span class=\"blank\">[ ___ ]</span> funny to me. Maybe it's worth shortening.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "predicate": "面白い",
+        "relationship": "boss",
+        "response": 0,
+        "attitude": "warning",
+        "trial_index": 13,
+        "time_elapsed": 20061,
+        "subject_id": "3ccn0hm23o",
+        "trial_feedback": "",
+        "trial_type": "html-button-response",
+        "rt": 907,
+        "sentence": "The boss runs by Daisuke the anecdote he plans to tell at the morning meeting. Wanting to be helpful, Daisuke points out hesitantly: \"I'm not sure that opener comes across as [modifier] funny to me. Maybe it's worth shortening.\"",
+        "modifier_response": "fads"
+      },
+      {
+        "predicate": "汚い",
+        "modifier_response_list": [
+          "afs"
+        ],
+        "is_practice": false,
+        "trial_feedback": "",
+        "time_elapsed": 20886,
+        "sentence": "The boss recommends a restaurant Daisuke had been avoiding because it was old, saying it is well looked after. He went in half-convinced. However, it was clean, just as his boss had said. The next day, he thanks his boss: \"You were right, it wasn't [modifier] dirty. Thank you for telling me.\"",
+        "rt": 824,
+        "internal_node_id": "0.0-14.0",
+        "relationship": "boss",
+        "trial_type": "html-button-response",
+        "subject_id": "3ccn0hm23o",
+        "stimulus": "<p class=\"stimulus\">The boss recommends a restaurant Daisuke had been avoiding because it was old, saying it is well looked after. He went in half-convinced. However, it was clean, just as his boss had said. The next day, he thanks his boss: \"You were right, it wasn't <span class=\"blank\">[ ___ ]</span> dirty. Thank you for telling me.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "trial_index": 14,
+        "modifier_response": "afs",
+        "attitude": "acknowledge",
+        "response": 0
+      },
+      {
+        "modifier_response": "asfd",
+        "stimulus": "<p class=\"stimulus\">The dish a friend cooked turns out bland. Since she apologizes for it, Daisuke reassures her: \"It's <span class=\"blank\">[ ___ ]</span> tasty. A bit of salt would make it even better.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "relationship": "friend",
+        "attitude": "encouraging",
+        "response": 0,
+        "trial_index": 15,
+        "trial_feedback": "",
+        "predicate": "美味しい",
+        "trial_type": "html-button-response",
+        "sentence": "The dish a friend cooked turns out bland. Since she apologizes for it, Daisuke reassures her: \"It's [modifier] tasty. A bit of salt would make it even better.\"",
+        "internal_node_id": "0.0-15.0",
+        "subject_id": "3ccn0hm23o",
+        "rt": 819,
+        "modifier_response_list": [
+          "asfd"
+        ],
+        "is_practice": false,
+        "time_elapsed": 21707
+      },
+      {
+        "modifier_response_list": [
+          "dasf"
+        ],
+        "rt": 958,
+        "is_practice": false,
+        "internal_node_id": "0.0-16.0",
+        "time_elapsed": 22666,
+        "sentence": "On an urgent job they are handling together, the work Daisuke handed to a colleague is days behind. He still hasn't touched it and looks like he has time on his hands; irritated, Daisuke says: \"The work I asked you for is [modifier] delayed. Could you get it to me by the end of today?\"",
+        "trial_feedback": "",
+        "trial_index": 16,
+        "predicate": "遅れている",
+        "stimulus": "<p class=\"stimulus\">On an urgent job they are handling together, the work Daisuke handed to a colleague is days behind. He still hasn't touched it and looks like he has time on his hands; irritated, Daisuke says: \"The work I asked you for is <span class=\"blank\">[ ___ ]</span> delayed. Could you get it to me by the end of today?\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "modifier_response": "dasf",
+        "trial_type": "html-button-response",
+        "attitude": "annoyed",
+        "response": 0,
+        "relationship": "colleague",
+        "subject_id": "3ccn0hm23o"
+      },
+      {
+        "trial_index": 17,
+        "trial_type": "html-button-response",
+        "subject_id": "3ccn0hm23o",
+        "rt": 952,
+        "time_elapsed": 23619,
+        "internal_node_id": "0.0-17.0",
+        "attitude": "neutral",
+        "response": 0,
+        "stimulus": "<p class=\"stimulus\">Outside the restaurant, someone deciding whether to go in asks Daisuke how tasty the food was, and he answers: \"It was <span class=\"blank\">[ ___ ]</span> tasty.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "relationship": "stranger",
+        "trial_feedback": "",
+        "modifier_response_list": [
+          "afsd"
+        ],
+        "predicate": "美味しい",
+        "is_practice": false,
+        "modifier_response": "afsd",
+        "sentence": "Outside the restaurant, someone deciding whether to go in asks Daisuke how tasty the food was, and he answers: \"It was [modifier] tasty.\""
+      },
+      {
+        "trial_feedback": "",
+        "trial_type": "html-button-response",
+        "internal_node_id": "0.0-18.0",
+        "rt": 757,
+        "subject_id": "3ccn0hm23o",
+        "relationship": "stranger",
+        "sentence": "Daisuke rented, half-convinced, a film a shop clerk swore was great. However, it was funny, just as the clerk had said. When returning it, he thanks the clerk: \"That was [modifier]funny. Thank you for recommending it.\"",
+        "is_practice": false,
+        "modifier_response_list": [
+          "asdf"
+        ],
+        "predicate": "面白い",
+        "time_elapsed": 24378,
+        "response": 0,
+        "attitude": "acknowledge",
+        "trial_index": 18,
+        "stimulus": "<p class=\"stimulus\">Daisuke rented, half-convinced, a film a shop clerk swore was great. However, it was funny, just as the clerk had said. When returning it, he thanks the clerk: \"That was <span class=\"blank\">[ ___ ]</span>funny. Thank you for recommending it.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "modifier_response": "asdf"
+      },
+      {
+        "trial_feedback": "",
+        "relationship": "boss",
+        "sentence": "Daisuke is asked by his boss for his view on accommodation for the business trip. Not wanting to assert his opinion, he cautiously replies: \"It might be [modifier] dirty, but it's close to the station and cheap.\"",
+        "trial_index": 19,
+        "modifier_response_list": [
+          "asdf"
+        ],
+        "subject_id": "3ccn0hm23o",
+        "trial_type": "html-button-response",
+        "attitude": "non-committal",
+        "response": 0,
+        "is_practice": false,
+        "stimulus": "<p class=\"stimulus\">Daisuke is asked by his boss for his view on accommodation for the business trip. Not wanting to assert his opinion, he cautiously replies: \"It might be <span class=\"blank\">[ ___ ]</span> dirty, but it's close to the station and cheap.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "internal_node_id": "0.0-19.0",
+        "predicate": "汚い",
+        "time_elapsed": 25169,
+        "modifier_response": "asdf",
+        "rt": 791
+      },
+      {
+        "is_practice": false,
+        "relationship": "boss",
+        "modifier_response_list": [
+          "afds"
+        ],
+        "sentence": "Asked by his boss how cold the site was, Daisuke answers: \"It was [modifier] cold.\"",
+        "trial_feedback": "",
+        "trial_index": 20,
+        "modifier_response": "afds",
+        "subject_id": "3ccn0hm23o",
+        "predicate": "寒い",
+        "rt": 757,
+        "stimulus": "<p class=\"stimulus\">Asked by his boss how cold the site was, Daisuke answers: \"It was <span class=\"blank\">[ ___ ]</span> cold.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "attitude": "neutral",
+        "response": 0,
+        "trial_type": "html-button-response",
+        "internal_node_id": "0.0-20.0",
+        "time_elapsed": 25928
+      },
+      {
+        "sentence": "A street comedian who has just performed asks Daisuke, a passerby, for his impressions. Wanting to be helpful, Daisuke points out hesitantly: \"The middle part doesn't feel [modifier] funny to me. Maybe it's worth shortening.\"",
+        "subject_id": "3ccn0hm23o",
+        "trial_type": "html-button-response",
+        "relationship": "stranger",
+        "modifier_response_list": [
+          "afds"
+        ],
+        "trial_feedback": "",
+        "modifier_response": "afds",
+        "predicate": "面白い",
+        "is_practice": false,
+        "stimulus": "<p class=\"stimulus\">A street comedian who has just performed asks Daisuke, a passerby, for his impressions. Wanting to be helpful, Daisuke points out hesitantly: \"The middle part doesn't feel <span class=\"blank\">[ ___ ]</span> funny to me. Maybe it's worth shortening.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "attitude": "warning",
+        "response": 0,
+        "rt": 729,
+        "trial_index": 21,
+        "internal_node_id": "0.0-21.0",
+        "time_elapsed": 26657
+      },
+      {
+        "predicate": "美味しい",
+        "attitude": "non-committal",
+        "response": 0,
+        "relationship": "friend",
+        "stimulus": "<p class=\"stimulus\">Daisuke and a friend are deciding where to eat. Not wanting to assert his opinion, Daisuke cautiously replies: \"That place might not be <span class=\"blank\">[ ___ ]</span> tasty, but it's cheap and the portions are big.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "rt": 636,
+        "trial_index": 22,
+        "modifier_response": "sfd",
+        "trial_feedback": "",
+        "trial_type": "html-button-response",
+        "subject_id": "3ccn0hm23o",
+        "sentence": "Daisuke and a friend are deciding where to eat. Not wanting to assert his opinion, Daisuke cautiously replies: \"That place might not be [modifier] tasty, but it's cheap and the portions are big.\"",
+        "modifier_response_list": [
+          "sfd"
+        ],
+        "internal_node_id": "0.0-22.0",
+        "is_practice": false,
+        "time_elapsed": 27295
+      },
+      {
+        "modifier_response": "sdf",
+        "trial_index": 23,
+        "relationship": "stranger",
+        "stimulus": "<p class=\"stimulus\">Daisuke ordered a sandwich for lunch, but it still hasn't come after thirty minutes. Other customers are getting their food one after another and his lunch break is down to ten minutes. The server who took his order has gone on break too, and, irritated, Daisuke stops a server for the second time and says: \"What I ordered is <span class=\"blank\">[ ___ ]</span> delayed. How much longer will it be?\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "predicate": "遅れている",
+        "trial_type": "html-button-response",
+        "attitude": "annoyed",
+        "response": 0,
+        "rt": 1211,
+        "subject_id": "3ccn0hm23o",
+        "internal_node_id": "0.0-23.0",
+        "trial_feedback": "",
+        "time_elapsed": 28508,
+        "is_practice": false,
+        "sentence": "Daisuke ordered a sandwich for lunch, but it still hasn't come after thirty minutes. Other customers are getting their food one after another and his lunch break is down to ten minutes. The server who took his order has gone on break too, and, irritated, Daisuke stops a server for the second time and says: \"What I ordered is [modifier] delayed. How much longer will it be?\"",
+        "modifier_response_list": [
+          "sdf"
+        ]
+      },
+      {
+        "modifier_response_list": [
+          "asdf"
+        ],
+        "time_elapsed": 32078,
+        "internal_node_id": "0.0-24.0",
+        "trial_index": 24,
+        "modifier_response": "asdf",
+        "trial_feedback": "",
+        "sentence": "The receptionist at the hotel Daisuke is staying at keeps apologizing for the cleaning not having been done properly, so Daisuke reassures her: \"The room is not [modifier] dirty. I hadn't even noticed.\"",
+        "is_practice": false,
+        "attitude": "encouraging",
+        "response": 0,
+        "subject_id": "3ccn0hm23o",
+        "relationship": "stranger",
+        "stimulus": "<p class=\"stimulus\">The receptionist at the hotel Daisuke is staying at keeps apologizing for the cleaning not having been done properly, so Daisuke reassures her: \"The room is not <span class=\"blank\">[ ___ ]</span> dirty. I hadn't even noticed.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "predicate": "汚い",
+        "trial_type": "html-button-response",
+        "rt": 3569
+      },
+      {
+        "predicate": "寒い",
+        "sentence": "A friend recommends a coat Daisuke had assumed would be cold because it was thin, insisting it is warm. He bought it half-convinced and wore it outside. However, it's warm, just as the friend had said. He thanks his friend: \"I'm [modifier] cold! Thanks for recommending it.\"",
+        "subject_id": "3ccn0hm23o",
+        "rt": 766,
+        "trial_type": "html-button-response",
+        "modifier_response": "sfda",
+        "time_elapsed": 32845,
+        "modifier_response_list": [
+          "sfda"
+        ],
+        "is_practice": false,
+        "attitude": "acknowledge",
+        "response": 0,
+        "relationship": "friend",
+        "stimulus": "<p class=\"stimulus\">A friend recommends a coat Daisuke had assumed would be cold because it was thin, insisting it is warm. He bought it half-convinced and wore it outside. However, it's warm, just as the friend had said. He thanks his friend: \"I'm <span class=\"blank\">[ ___ ]</span> cold! Thanks for recommending it.\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "internal_node_id": "0.0-25.0",
+        "trial_feedback": "",
+        "trial_index": 25
+      },
+      {
+        "sentence": "A colleague who has picked the product photos shows them to Daisuke. Wanting to be helpful, Daisuke points out hesitantly: \"Just that one doesn't look [modifier] nice to me. What about reshooting it?\"",
+        "is_practice": false,
+        "subject_id": "3ccn0hm23o",
+        "time_elapsed": 33586,
+        "trial_type": "html-button-response",
+        "predicate": "綺麗",
+        "rt": 740,
+        "modifier_response_list": [
+          "asdf"
+        ],
+        "internal_node_id": "0.0-26.0",
+        "attitude": "warning",
+        "response": 0,
+        "stimulus": "<p class=\"stimulus\">A colleague who has picked the product photos shows them to Daisuke. Wanting to be helpful, Daisuke points out hesitantly: \"Just that one doesn't look <span class=\"blank\">[ ___ ]</span> nice to me. What about reshooting it?\"</p><p class=\"context-note\">Type any word that could go in the blank above and press Enter. There are no right or wrong answers &mdash; many different words could fit, so enter as many as come to mind.</p><div id=\"tag-container\" class=\"tag-container\"></div><input type=\"text\" id=\"tag-input\" class=\"tag-input\" placeholder=\"Type an option and press Enter\" autocomplete=\"off\"><p class=\"feedback-label\">(Optional) Any feedback about this scenario?</p><textarea id=\"feedback-box\" class=\"feedback-box\" rows=\"3\" placeholder=\"Comments (optional)\"></textarea>",
+        "trial_feedback": "",
+        "trial_index": 26,
+        "modifier_response": "asdf",
+        "relationship": "colleague"
+      },
+      {
+        "internal_node_id": "0.0-27.0",
+        "trial_index": 27,
+        "response": {
+          "comments": ""
+        },
+        "subject_id": "3ccn0hm23o",
+        "time_elapsed": 34820,
+        "trial_type": "survey-html-form",
+        "rt": 1232
+      }
+    ],
+    "subject_id": "3ccn0hm23o",
+    "submitted_at": {
+      "_seconds": 1788900779,
+      "_nanoseconds": 971000000
+    }
+  }
+]

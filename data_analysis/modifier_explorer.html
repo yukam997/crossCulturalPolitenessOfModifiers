@@ -144,8 +144,10 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
 .hseg { width: 100%; }
 .hseg.aff { background: #60a5fa; }          /* affirmative frame */
 .hseg.neg { background: #fb7185; }          /* negated frame */
+.hseg.mono { background: #94a3b8; }         /* negation coloring turned off */
 .hist-bar.sel .hseg.aff { background: #2563eb; }
 .hist-bar.sel .hseg.neg { background: #e11d48; }
+.hist-bar.sel .hseg.mono { background: #475569; }
 .barkey { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #475569; }
 .barkey i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 .hist-bar.sel { outline: 2px solid #0f172a; outline-offset: -1px; z-index: 2; }
@@ -171,6 +173,7 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
   display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px;
   border-radius: 10px; margin: 0 0 8px 8px; text-transform: uppercase; letter-spacing: .04em;
 }
+.pol-badge { background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; }
 .pol-badge.pol-neg { background: #fff1f2; border: 1px solid #fda4af; color: #9f1239; }
 .pol-badge.pol-aff { background: #eff6ff; border: 1px solid #93c5fd; color: #1e40af; }
 .discrepancy {
@@ -250,7 +253,7 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
       </select>
     </label>
     <label><input type="checkbox" id="hist-ref"> overlay pooled average</label>
-    <span class="barkey"><i style="background:#fb7185;"></i>negated <i style="background:#60a5fa;margin-left:6px;"></i>affirmative</span>
+    <span class="barkey" id="hist-barkey"><i style="background:#fb7185;"></i>negated <i style="background:#60a5fa;margin-left:6px;"></i>affirmative</span>
   </span>
   <label>Match:
     <select id="match-mode" style="font-size:13px;padding:4px 6px;border-radius:5px;border:1px solid #cbd5e1;">
@@ -265,13 +268,15 @@ details.help code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; f
       <option value="aff">affirmative only</option>
     </select>
   </label>
+  <label><input type="checkbox" id="collapse-rel"> collapse across relationships<span class="hint-inline">(one distribution per attitude)</span></label>
   <label><input type="checkbox" id="merge-spellings" checked> merge equivalent spellings<span class="hint-inline">(超 / ちょう etc. count as one)</span></label>
+  <label><input type="checkbox" id="color-by-polarity" checked> colour negated vs. affirmative differently</label>
   <button class="btn" id="clear-btn">Reset filters</button>
 </div>
 
 <div class="legend" id="legend"></div>
 
-<div class="pol-key">
+<div class="pol-key" id="pol-key">
   <span><b>Cell colour = negation frame:</b></span>
   <span><span class="sw" style="background:#fff1f2;border-color:#fda4af;"></span>negated (&ldquo;not&nbsp;&hellip;&nbsp;interesting&rdquo;)</span>
   <span><span class="sw" style="background:#eff6ff;border-color:#93c5fd;"></span>affirmative</span>
@@ -531,9 +536,12 @@ var activePred = {}, activeSubj = {};
 var selectedAnswers = {};            // set of answers currently highlighted
 var matchMode = 'any';               // 'any' = union, 'all' = intersection
 var showAll = false, polFilter = 'all';
+var colorByPolarity = true;          // toggled by the "colour negated vs. affirmative differently" checkbox
 var viewMode = 'summary';            // 'summary' | 'tags' | 'histogram'
 var histScale = 'shared';            // 'shared' = absolute counts | 'prop' = % within cell
 var histRef = false;                 // overlay the pooled-average profile on every cell
+var collapseRel = false;             // pool all relationships into one row per attitude
+var ALL_REL = '__all_relationships__';
 function selectedList() {
   return Object.keys(selectedAnswers).filter(function (k) { return selectedAnswers[k]; });
 }
@@ -581,7 +589,7 @@ function recompute() {
   });
   cellMap = {};
   vis.forEach(function (e) {
-    var k = e.relationship + '|' + e.attitude;
+    var k = (collapseRel ? ALL_REL : e.relationship) + '|' + e.attitude;
     (cellMap[k] = cellMap[k] || []).push(e);
   });
   answerInfo = {};
@@ -605,7 +613,7 @@ function styleFor(p) {
   var c = COLORS[p] || { bg: '#f3f4f6', bd: '#6b7280', fg: '#374151' };
   return 'background:' + c.bg + ';border-color:' + c.bd + ';color:' + c.fg + ';';
 }
-function label(v) { return CONFIG.labels[v] || v; }
+function label(v) { return v === ALL_REL ? 'All relationships' : (CONFIG.labels[v] || v); }
 function renderSentence(s) { return esc(s).replace('[modifier]', '<span class="blank">[ ___ ]</span>'); }
 
 function renderStatus(vis) {
@@ -745,19 +753,26 @@ function buildHistogram(cell, answers, bars, sharedMax, pooled) {
     var bar = document.createElement('div');
     bar.className = 'hist-bar' + (c === 0 ? ' zero' : '') + (isSelected(a) ? ' sel' : '');
     bar.style.height = Math.max(c > 0 ? 2 : 0, pct) + '%';
-    // Split the bar: affirmative on top, negated at the bottom.
+    // Split the bar: affirmative on top, negated at the bottom (unless colour-coding is off).
     if (c > 0) {
-      if (cc.aff > 0) {
-        var segA = document.createElement('div');
-        segA.className = 'hseg aff';
-        segA.style.height = (cc.aff / c * 100) + '%';
-        bar.appendChild(segA);
-      }
-      if (cc.neg > 0) {
-        var segN = document.createElement('div');
-        segN.className = 'hseg neg';
-        segN.style.height = (cc.neg / c * 100) + '%';
-        bar.appendChild(segN);
+      if (!colorByPolarity) {
+        var segM = document.createElement('div');
+        segM.className = 'hseg mono';
+        segM.style.height = '100%';
+        bar.appendChild(segM);
+      } else {
+        if (cc.aff > 0) {
+          var segA = document.createElement('div');
+          segA.className = 'hseg aff';
+          segA.style.height = (cc.aff / c * 100) + '%';
+          bar.appendChild(segA);
+        }
+        if (cc.neg > 0) {
+          var segN = document.createElement('div');
+          segN.className = 'hseg neg';
+          segN.style.height = (cc.neg / c * 100) + '%';
+          bar.appendChild(segN);
+        }
       }
     }
     bar.title = a + '\n' + c + ' of ' + total + ' answer(s) in this cell' +
@@ -815,7 +830,7 @@ function renderGrid() {
     grid.appendChild(h);
   });
 
-  RELS.forEach(function (rel) {
+  (collapseRel ? [ALL_REL] : RELS).forEach(function (rel) {
     var lab = document.createElement('div');
     lab.className = 'row-label'; lab.textContent = label(rel);
     grid.appendChild(lab);
@@ -823,7 +838,7 @@ function renderGrid() {
     ATTS.forEach(function (att) {
       var list = cellMap[rel + '|' + att] || [];
       var cell = document.createElement('div');
-      cell.className = 'cell pol-' + cellPolarity(list);
+      cell.className = 'cell' + (colorByPolarity ? ' pol-' + cellPolarity(list) : '');
       if (!list.length) {
         cell.className = 'cell empty';
         cell.innerHTML = '<div class="count-badge">&mdash;</div>';
@@ -996,7 +1011,7 @@ function openModal(rel, att, list) {
         '" data-answer="' + esc(a) + '" style="' + styleFor(e.predicate) + '">' + esc(a) + '</span>';
     }).join('');
     d.innerHTML =
-      '<span class="pol-badge pol-' + polarityOf(e) + '">' +
+      '<span class="pol-badge' + (colorByPolarity ? ' pol-' + polarityOf(e) : '') + '">' +
         (polarityOf(e) === 'neg' ? 'negated frame' : 'affirmative frame') + '</span>' +
       (isDiscrepant(e) ? '<div class="discrepancy">\u26a0 The sentence text disagrees with the ' +
         'negation table for this attitude \u00d7 predicate \u2014 likely a stimulus error.</div>' : '') +
@@ -1005,7 +1020,8 @@ function openModal(rel, att, list) {
       '<p class="entry-sentence">' + renderSentence(e.sentence || '(no sentence recorded)') + '</p>' +
       '<div class="entry-answers">' + (chips || '<span class="entry-meta">(no answers)</span>') + '</div>' +
       (e.feedback ? '<div class="entry-feedback"><b>Trial feedback:</b> ' + esc(e.feedback) + '</div>' : '') +
-      '<div class="entry-meta">participant: ' + esc(e.subject_id) + '</div>';
+      '<div class="entry-meta">relationship: ' + esc(label(e.relationship)) +
+        ' &middot; participant: ' + esc(e.subject_id) + '</div>';
     body.appendChild(d);
   });
   document.getElementById('backdrop').classList.add('open');
@@ -1083,8 +1099,18 @@ document.getElementById('merge-spellings').onchange = function (e) {
   selectedAnswers = {};   // labels change, so old selections no longer apply
   renderAll();
 };
+document.getElementById('collapse-rel').onchange = function (e) {
+  collapseRel = e.target.checked;
+  renderAll();
+};
 document.getElementById('hist-scale').onchange = function (e) { histScale = e.target.value; renderGrid(); };
 document.getElementById('hist-ref').onchange = function (e) { histRef = e.target.checked; renderGrid(); };
+document.getElementById('color-by-polarity').onchange = function (e) {
+  colorByPolarity = e.target.checked;
+  document.getElementById('pol-key').style.display = colorByPolarity ? '' : 'none';
+  document.getElementById('hist-barkey').style.display = colorByPolarity ? '' : 'none';
+  renderGrid();
+};
 document.getElementById('sel-all').onclick = function () {
   allAnswers.forEach(function (a) { selectedAnswers[a] = true; });
   renderNote(); renderTags(); renderGrid();
